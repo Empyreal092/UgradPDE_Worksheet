@@ -1,0 +1,149 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsfonts,amsmath}
+\usepackage{graphicx,float}
+% -----------------------------------
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  linkbordercolor={0 0 1}
+}
+% -----------------------------------
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{citation.bib}
+% -----------------------------------
+\usepackage{fancyhdr}
+\newcommand\course{MATH-UA.0263\\Partial Differential Equations}
+\newcommand\hwnumber{1}                  % <-- homework number
+\newcommand\NetIDa{Ryan Sh\`iji\'e D\`u} 
+\newcommand\NetIDb{February 3rd, 2022}
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Worksheet \hwnumber}}
+\rhead{\course}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+% -----------------------------------
+\usepackage{titlesec}
+\renewcommand\thesubsection{(\arabic{section}.\alph{subsection})}
+\titleformat{\subsection}[runin]
+        {\normalfont\bfseries}
+        {\thesubsection}% the label and number
+        {0.5em}% space between label/number and subsection title
+        {}% formatting commands applied just to subsection title
+        []% punctuation or other commands following subsection title
+% -----------------------------------
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+% -----------------------------------
+\input{../command.tex}
+\begin{document}
+
+\section{Domain of dependence}
+From \cite[Excercise 2.2.12]{Olver_14}. A sensor situated at position $x=1$ monitors the concentration of a pollutant $u(t,1)$ as a function of $t$ for $t\geq 0$. Assuming that the pollutant is transported with wave speed $c=3$, at what locations $x$ can you determine the initial concentration $u(0,x)$? 
+
+Remark: this is a first example of an inverse problem. To explain a sub-class of inverse problems: ``forward'' problem is the evolution of the PDE from the initial condition, and inverse problem tries to infer information about the initial condition from observations of the solution at a later time (and a specific location). Things get significantly more difficult when diffusion, modeled by the heat equation, is in the dynamics. Inverse problem is a big field with active research. We will come back to explore more of it later on.
+
+\section{Initial and boundary conditions}
+From \cite[Excercise 2.2.14]{Olver_14}. Let $c>0$. Consider the uniform transport equation
+\begin{align}
+    u_t+cu_x = 0
+\end{align}
+restricted to the quarter-place $Q = \{x>0, t>0\}$ and subject to initial conditions
+\begin{align}
+    u(0,x) = f(x) \qdt{for} x\geq 0
+\end{align}
+along with the boundary condition
+\begin{align}
+    u(t,0) = g(t) \qdt{for} t\geq 0.
+\end{align}
+
+\subsection{}
+For which initial and boundary conditions does a classical solution to this initial-boundary value problem exists? Write down a formula for the solution.
+
+\subsection{}
+On which regions are the effects of the initial conditions felt? What about the boundary conditions? Is there any interaction between the two?
+
+\section{Blow-up of solution}
+From \cite[Excercise 3.8]{ShearerLevy_15}. 
+
+\subsection{}
+Use the method of characteristics to solve the initial value problem: 
+\begin{align}
+    u_t+tu_x = u^2,\quad -\infty<x<\infty,\; 0<t<1
+\end{align}
+with initial condition 
+\begin{align}
+    u(x,0) = \frac{1}{1+x^2}.
+\end{align}
+
+\subsection{}
+Show that the solution blows up as $t\to 1^-$:
+\begin{align}
+    \lim_{t\to 1^-} \max_x u(x,t) = \infty.
+\end{align}
+
+Remark: for a similar problem, see \cite[Problem 2.2.11]{Olver_14}.
+
+\section{Transport in higher dimensions}
+Adapted from \cite[Problem 2.2.31]{Olver_14}. We will consider transport equation in 2D. In vector form, the transport equation is
+\begin{align}
+    \frac{Dq}{Dt}:= \frac{\pe q}{\pe t} + \ve u\cdot\nabla q = 0\label{eq:DqDt}
+\end{align}
+where we define the material derivative $D/Dt$. In 2D, the velocity vector is
+\begin{align}
+    \ve u(x,y,t) = \begin{pmatrix}
+    u(x,y,t)\\v(x,y,t)
+    \end{pmatrix}.
+\end{align}
+We also write out the dot product in \eqref{eq:DqDt}:
+\begin{align}
+    \ve u\cdot\nabla q = uq_x+vq_y. 
+\end{align}
+All together we have the transport equation
+\begin{align}
+    &\frac{Dq}{Dt} = 0\\
+    \fff & q_t + u(x,y,t)q_x+v(x,y,t)q_y = 0.
+\end{align}
+
+\subsection{}
+Define a characteristic curve, and prove that the solution is constant along it.
+
+\subsection{}
+Apply the method of characteristics to solve the initial value problem
+\begin{align}
+    u_t+yu_x-xu_y = 0, \quad u(0,x,y) = e^{-(x-1)^2-(y-1)^2}.
+\end{align}
+
+\subsection{}
+Describe the behavior of your solution.
+
+\section{Symmetries of the wave equation}
+From \cite[Excercise 4.3]{ShearerLevy_15}. Show that if $u(x,t)\in C^3$ is a solution of the wave equation
+\begin{align}
+    u_{tt} = c^2u_{xx},
+\end{align}
+then so are the following functions:
+
+\subsection{}
+For any $y\in\mathbb{R}$, the function $u(x-y,t)$
+
+\subsection{}
+Both $u_x$ and $u_t$.
+
+\subsection{}
+For any $a\in\mathbb{R}$, the function $u(ax,at)$. 
+
+    
+\vfill
+\printbibliography
+
+
+\end{document}
