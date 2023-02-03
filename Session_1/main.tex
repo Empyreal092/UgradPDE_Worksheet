@@ -92,38 +92,38 @@ Show that the solution blows up as $t\to 1^-$:
 
 Remark: for a similar problem, see \cite[Exercise 2.2.11]{Olver_14}.
 
-\section{Transport in higher dimensions}
-[Adapted from \cite{Olver_14}, Exercise 2.2.31] We will consider transport equation in 2D. In vector form, the transport equation is
-\begin{align}
-    \frac{D\rho}{Dt}:= \frac{\pe \rho}{\pe t} + \ve u\cdot\nabla \rho = 0\label{eq:DqDt}
-\end{align}
-where we define the material derivative $D/Dt$. In 2D, the velocity vector is
-\begin{align}
-    \ve u(x,y,t) = \begin{pmatrix}
-    u(x,y,t)\\v(x,y,t)
-    \end{pmatrix}.
-\end{align}
-We also write out the dot product in \eqref{eq:DqDt}:
-\begin{align}
-    \ve u\cdot\nabla \rho = u\rho_x+v\rho_y. 
-\end{align}
-All together we have the transport equation
-\begin{align}
-    &\frac{D\rho}{Dt} = 0\\
-    \fff & \rho_t + u(x,y,t)\rho_x+v(x,y,t)\rho_y = 0.
-\end{align}
+% \section{Transport in higher dimensions}
+% [Adapted from \cite{Olver_14}, Exercise 2.2.31] We will consider transport equation in 2D. In vector form, the transport equation is
+% \begin{align}
+%     \frac{D\rho}{Dt}:= \frac{\pe \rho}{\pe t} + \ve u\cdot\nabla \rho = 0\label{eq:DqDt}
+% \end{align}
+% where we define the material derivative $D/Dt$. In 2D, the velocity vector is
+% \begin{align}
+%     \ve u(x,y,t) = \begin{pmatrix}
+%     u(x,y,t)\\v(x,y,t)
+%     \end{pmatrix}.
+% \end{align}
+% We also write out the dot product in \eqref{eq:DqDt}:
+% \begin{align}
+%     \ve u\cdot\nabla \rho = u\rho_x+v\rho_y. 
+% \end{align}
+% All together we have the transport equation
+% \begin{align}
+%     &\frac{D\rho}{Dt} = 0\\
+%     \fff & \rho_t + u(x,y,t)\rho_x+v(x,y,t)\rho_y = 0.
+% \end{align}
 
-\subsection{}
-Define a characteristic curve, and prove that the solution is constant along it.
+% \subsection{}
+% Define a characteristic curve, and prove that the solution is constant along it.
 
-\subsection{}
-Apply the method of characteristics to solve the initial value problem
-\begin{align}
-    \rho_t+y\rho_x-x\rho_y = 0, \quad u(0,x,y) = e^{-(x-1)^2-(y-1)^2}.
-\end{align}
+% \subsection{}
+% Apply the method of characteristics to solve the initial value problem
+% \begin{align}
+%     \rho_t+y\rho_x-x\rho_y = 0, \quad u(0,x,y) = e^{-(x-1)^2-(y-1)^2}.
+% \end{align}
 
-\subsection{}
-Describe the behavior of your solution.
+% \subsection{}
+% Describe the behavior of your solution.
 
 \section{Symmetries of the wave equation}
 [From \cite{ShearerLevy_15}, Exercise 4.3] Show that if $u(x,t)\in C^3$ is a solution of the wave equation
@@ -141,7 +141,33 @@ Both $u_x$ and $u_t$.
 \subsection{}
 For any $a\in\mathbb{R}$, the function $u(ax,at)$. 
 
+\section{Challenging wave equation problem}
+[From Spring 2019 of Applied Differential Equations qualifying exam at UCLA, Problem 1\footnote{\url{https://ww3.math.ucla.edu/wp-content/uploads/2021/09/ade-19S.pdf}}]  Let $u(x,t)$ solve the initial value problem
+\begin{align}
+    \begin{cases}
+        u_{tt}+u_{xt}-2u_{xx} = 0,\quad x\in\mathbb{R}, t>0,\\
+        u(x,0) = g(x),\\
+        u_t(x,0) = h(x).
+    \end{cases}
+\end{align}
 
+\subsection{}
+Derive a formula for $u$ in terms of $g$ and $h$, when $g$ and $h$ are $C^2$. 
+
+Hint: Consider how to simplify the equation into something more obviously like the wave equation
+by making a change of coordinate system: $(x,t)\to (\zeta,t)$ where $\zeta = x-vt$ for $v$ appropriately determined. 
+
+\subsection{}
+Next consider the boundary value problem 
+\begin{align}
+    \begin{cases}
+        u_{tt}+u_{xt}-2u_{xx} = 0,\quad x\in[0,1], t>0,\\
+        u(0,t) = u(1,t) = 0.
+    \end{cases}
+\end{align}
+Show that a smooth solution $u$ to above problem must be zero if $u(x,0)=u_t(x,0)=0$. 
+
+Hint: use an energy argument. Try the energy for the wave equation. 
 
     
 \vfill
