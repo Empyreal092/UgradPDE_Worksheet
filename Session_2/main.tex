@@ -1,0 +1,134 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsfonts,amsmath}
+\usepackage{graphicx,float}
+% -----------------------------------
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  linkbordercolor={0 0 1}
+}
+% -----------------------------------
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{citation.bib}
+% -----------------------------------
+\usepackage{fancyhdr}
+\newcommand\course{MATH-UA.0263\\Partial Differential Equations}
+\newcommand\hwnumber{2}                  % <-- homework number
+\newcommand\NetIDa{Ryan Sh\`iji\'e D\`u} 
+\newcommand\NetIDb{February 10th, 2023}
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Worksheet \hwnumber}}
+\rhead{\course}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+% -----------------------------------
+\usepackage{titlesec}
+\renewcommand\thesubsection{(\arabic{section}.\alph{subsection})}
+\titleformat{\subsection}[runin]
+        {\normalfont\bfseries}
+        {\thesubsection}% the label and number
+        {0.5em}% space between label/number and subsection title
+        {}% formatting commands applied just to subsection title
+        []% punctuation or other commands following subsection title
+% -----------------------------------
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+% -----------------------------------
+\input{../command.tex}
+\begin{document}
+
+\section{Domain of dependence}
+[From \cite{ShearerLevy_15}, Exercise 4.6] Suppose $u$ satisfies the wave equation with $c=1$ for $x>0$. We want to find a solution of the PDE for $x>0, t>0$, that satisfy the initial conditions
+\begin{align}
+    & u(x,0) = \phi(x)\\
+    & u_t(x,0) = \psi(x),
+\end{align}
+and the boundary condition
+\begin{align}
+    u_x(x,0) = 0.
+\end{align}
+
+\subsection{}
+Solve for $u(x,t)$
+
+\subsection{}
+Assume $\supp\phi = \supp\psi=[1,2]$, where can you guarantee that $u=0$ for $x>0, t>0$. 
+
+\section{Fourier series and the expansions of $\pi$}
+\subsection{}
+Show the Fourier series of periodic extension of $x$ on the interval $(-\pi,\pi)$ is
+\begin{align}
+    x = \sum_{n=1}^\infty \frac{2(-1)^{n+1}}{n}\sin(nx).
+\end{align}
+
+\subsection{}
+Show this expansion of $\pi$:
+\begin{align}
+    \frac{\pi}{4} = 1-\frac{1}{3}+\frac{1}{5}-\frac{1}{7}+\dots
+\end{align}
+
+\subsection{}
+Show the solution to the Basel problem is
+\begin{align}
+    1+\frac{1}{4}+\frac{1}{9}+\frac{1}{16} + \dots = \frac{\pi^2}{6}.
+\end{align}
+
+\section{Challenging wave equation problem}
+[From Spring 2019 of Applied Differential Equations qualifying exam at UCLA, Problem 1\footnote{\url{https://ww3.math.ucla.edu/wp-content/uploads/2021/09/ade-19S.pdf}}]  Let $u(x,t)$ solve the initial value problem
+\begin{align}
+    \begin{cases}
+        u_{tt}+u_{xt}-2u_{xx} = 0,\quad x\in\mathbb{R}, t>0,\\
+        u(x,0) = g(x),\\
+        u_t(x,0) = h(x).
+    \end{cases}
+\end{align}
+
+\subsection{}
+Derive a formula for $u$ in terms of $g$ and $h$, when $g$ and $h$ are $C^2$. 
+
+Hint: Consider how to simplify the equation into something more obviously like the wave equation
+by making a change of coordinate system: $(x,t)\to (\zeta,t)$ where $\zeta = x-vt$ for $v$ appropriately determined. 
+
+\subsection{}
+Next consider the boundary value problem 
+\begin{align}
+    \begin{cases}
+        u_{tt}+u_{xt}-2u_{xx} = 0,\quad x\in[0,1], t>0,\\
+        u(0,t) = u(1,t) = 0.
+    \end{cases}
+\end{align}
+Show that a smooth solution $u$ to above problem must be zero if $u(x,0)=u_t(x,0)=0$. 
+
+Hint: use an energy argument. Try the energy for the wave equation. 
+
+\section{Equipartition of energy}
+[From \cite{Evans_10}, Exercise 2.24] Let $u$ solve the initial-value problem for the wave equation in one dimension:
+\begin{align}
+    u_{tt}-u_{xx} = 0 &\qdt{in} \mathbb{R}\times(0,\infty)\\
+    u=0, u_t=0 &\qdt{on} \mathbb{R}\times\{t=0\}.
+\end{align}
+Suppose $g,h$ have compact support. We define the kinetic energy
+\begin{align}
+    k(t):= \frac{1}{2}\int_{-\infty}^\infty u_t^2(x,t)\;\de x
+\end{align}
+and the potential energy
+\begin{align}
+    p(t):= \frac{1}{2}\int_{-\infty}^\infty u_x^2(x,t)\;\de x.
+\end{align}
+We know that the total energy $k(t)+p(t)$ is constant in $t$. Show that $k(t)=p(t)$ for all large enough times $t$. 
+
+    
+\vfill
+\printbibliography
+
+
+\end{document}
