@@ -1,0 +1,151 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsfonts,amsmath}
+\usepackage{graphicx,float}
+\usepackage{csquotes}
+% -----------------------------------
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  linkbordercolor={0 0 1}
+}
+% -----------------------------------
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{citation.bib}
+% -----------------------------------
+\usepackage{fancyhdr}
+\newcommand\course{MATH-UA.0263\\Partial Differential Equations}
+\newcommand\hwnumber{4}                  % <-- homework number
+\newcommand\NetIDa{Ryan Sh\`iji\'e D\`u} 
+\newcommand\NetIDb{February 24th, 2023}
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Worksheet \hwnumber}}
+\rhead{\course}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+% -----------------------------------
+\usepackage{titlesec}
+\renewcommand\thesubsection{(\arabic{section}.\alph{subsection})}
+\titleformat{\subsection}[runin]
+        {\normalfont\bfseries}
+        {\thesubsection}% the label and number
+        {0.5em}% space between label/number and subsection title
+        {}% formatting commands applied just to subsection title
+        []% punctuation or other commands following subsection title
+% -----------------------------------
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+% -----------------------------------
+\input{../command.tex}
+\begin{document}
+
+\section{Burgers' with shock and expansion fan}
+Solve the Burgers' equation on the infinite domain with the initial condition:
+\begin{align}
+    u(x,0) = \begin{cases}
+        1 & \text{for\;} 0\leq x\leq 1,\\
+        0 & \text{otherwise}.
+    \end{cases}
+\end{align}
+
+\subsection{}
+At $t=0$, what happens at $x=0$? What happens at $x=1$?
+
+\subsection{}
+Draw the solution at $t=2$. 
+
+\subsection{}
+Continue for solution past $t=2$. Draw the shock curve and some sample characteristic lines in an $x-t$ plot as time progresses. 
+
+\section{Periodic Burgers'}
+Solve the Burgers' equation on the periodic $x\in[0,1]$ with the initial condition
+\begin{align}
+    u(x,0) = \begin{cases}
+        1 & \text{for\;} x\in[0,1/2),\\
+        0 & \text{for\;} x\in[1/2,1).
+    \end{cases}
+\end{align}
+
+What happens at time $t=1$? Continue your solution past time $t=1$ and draw the shock curve and some sample characteristic lines in an $x-t$ plot at time progress. 
+
+\newpage
+\section{Green light on a two way street}
+[From Esteban Tabak's PDE note\footnote{See the end of note \url{https://math.nyu.edu/~tabak/PDEs/Traffic_flow.pdf}}] I will quote Esteban Tabak for his wonderful description of this traffic phenomenon
+\begin{displayquote}
+    You are in a long traffic queue in a two-way street--say Park Avenue--waiting for the green light. When the light finally turns green, the first car in the queue moves, then the second, and so on: a wave propagates backward through the queue, telling the cars when to start. On the other hand, you see on your left the first cars moving the opposite way, as they start with the green light at the intersection and soon reach your point in the queue. My observation is--please confirm this with your own experience!--that the time at which the first car going the other way reaches your position in the queue agrees almost exactly with your starting time. 
+\end{displayquote}
+We will give an explanation of this phenomenon using the Greenshields model for the traffic flux:
+\begin{align}
+    F(\rho) = \rho(1-\rho).
+\end{align}
+
+\subsection{}
+What happens in the Greenshields model when the traffic light turns green?
+
+\subsection{}
+Calculate the speed of the two ends of the expansion fan.
+
+\section{Red light, green light}
+[From \cite{ShearerLevy_15}, \S 13.2.1] A line of traffic with uniform density $\overline{\rho}<1/2$ approaches a traffic light located at $x=0$. We start the solution at $t=0$ with the initial condition
+\begin{align}
+    u(x,0) = \begin{cases}
+        \overline{\rho} & \text{for\;} x\leq 0,\\
+        0 & \text{for\;} x>0.
+    \end{cases}
+\end{align}
+
+The traffic light stays red till time $t_1$ and turns green. 
+
+\subsection{}
+Solve the traffic problem during $t\in[0,t_1]$. What is the direction of the shock? Does this make sense intuitively?
+
+\subsection{}
+Calculate the first time $t>0$ when there is no maximum density $\rho=1$ in the domain. Name this time $t_2$.
+
+\subsection{}
+Solve the traffic problem past time $t_2$ by drawing the shock curve and some sample characteristic lines. Will the shock pass $x=0$ again? 
+
+$t_3-t_1$ is the shortest a well-designed green light should last. After that the traffic behind the traffic light is restored to the incoming density $\overline{\rho}$ and the cycle continues.
+
+\section{Deriving expansion fan solutions from scaling symmetry}
+We solve the Riemann problem for a conservation law with strictly convex flux $F(u)$:
+\begin{align}
+    & u_t+F(u)_x = 0\\
+    & u(x,0) = \begin{cases}
+        u_L &\text{for }x<0\\
+        u_R &\text{for }x\geq 0
+    \end{cases}.
+\end{align}
+
+\subsection{}
+What is the relation between $u_L$ and $u_R$ that admits an expansion fan solution, instead of a shock solution that satisfy the Lax stability criterion. 
+
+\subsection{}
+Show that the change of variable $\tau=at$, $y=ax$ does not change the Riemann problem. 
+
+\subsection{}
+This scaling symmetry inspires us to look for solution of the form $u(x,t) = \phi(\zeta)$ where $\zeta = x/t$. Plug this ansatz into the Riemann problem to find out what $\phi$ should be.
+
+\subsection{}
+Put all the pieces together and obtain the expansion fan solution
+\begin{align}
+    u(x,t) = \begin{cases}
+        u_L &\text{if } x \leq F'(u_L) t, \\
+        (F')^{-1}(x/t) &\text{if } F'(u_L) t \leq x \leq F'(u_R) t, \\
+        u_R &\text{if } F'(u_R) t \leq x.
+    \end{cases}
+\end{align}
+
+\vfill
+\printbibliography
+
+
+\end{document}

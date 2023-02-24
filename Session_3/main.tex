@@ -47,14 +47,14 @@
 \begin{document}
 
 \section{First time of shock}
-[See \cite{ShearerLevy_15}, \S 3.4.1] This is an alternative way to derive the first time of shock for Burger's equation. We have the Burger's equation:
+[See \cite{ShearerLevy_15}, \S 3.4.1] This is an alternative way to derive the first time of shock for Burgers' equation. We have the Burgers' equation:
 \begin{align}
     & u_t + uu_x = 0\label{eq:burgers}\\
     & u(x,0) = g(x).\nonumber
 \end{align}
 
 \subsection{}
-Take the $x$-derivative of the Burger's equation and derive an equation for the evolution of $u_x$. We name $v:= u_x$.
+Take the $x$-derivative of the Burgers' equation and derive an equation for the evolution of $u_x$. We name $v:= u_x$.
 
 \subsection{}
 Transform the above PDE into an ODE with a change of variable. Hint: try the Galilean transformation again.
@@ -62,7 +62,7 @@ Transform the above PDE into an ODE with a change of variable. Hint: try the Gal
 \subsection{}
 Solve this ODE and recover the first time of shock result you learned in lecture.
 
-\section{Mapping to Burger's equation}
+\section{Mapping to Burgers' equation}
 We have a 1D conservation law
 \begin{align}
     & u_t + F(u)_x = 0.\label{eq:cons_Fu}\\
@@ -72,7 +72,7 @@ The rigorous theory of 1D conservation laws is less complicated if the flux func
 \begin{align}
     F''\geq\theta>0
 \end{align}
-for some constant $\theta$. In fact, we will show that if $F$ is uniformly convex (and smooth), we can map the more general problem \eqref{eq:cons_Fu} to Burger's equation.
+for some constant $\theta$. Here, we will show that if $F$ is uniformly convex (and smooth), we can map the more general problem \eqref{eq:cons_Fu} to Burgers' equation \textit{assuming that we have strong solution}.
 
 \subsection{}
 Assume $v=G(u)$, derive the formula for $v_t$ and $(v^2/2)_x$.
