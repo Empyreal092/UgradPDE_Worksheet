@@ -1,0 +1,383 @@
+\documentclass[11pt,letterpaper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsfonts,amsmath}
+\usepackage{graphicx,float}
+\usepackage{titlesec}
+\usepackage{csquotes}
+% -----------------------------------
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  linkbordercolor={0 0 1}
+}
+% -----------------------------------
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{citation.bib}
+% -----------------------------------
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+% -----------------------------------
+\input{../command.tex}
+% -----------------------------------
+\renewcommand\thesection{\arabic{chapter}.\arabic{section}}
+\renewcommand\thesubsection{(\arabic{section}.\alph{subsection})}
+  
+\titleformat{\subsection}[runin]
+        {\normalfont\bfseries}
+        {\thesubsection}% the label and number
+        {0.5em}% space between label/number and subsection title
+        {}% formatting commands applied just to subsection title
+        []% punctuation or other commands following subsection title
+% -----------------------------------
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+        \vspace*{4cm}
+        \Huge
+        \textbf{Recitation Materials} \\
+        \vspace{0.5cm}
+        \LARGE
+        {for NYU Undergraduate Partial Differential Equations}\\
+        \vspace{3cm}
+        By\\
+        \vspace{0.5cm}
+        \textbf{Ryan Sh\`iji\'e D\`u}\\
+        \vspace{0.2cm}
+        \normalsize
+        {Courant Institute of Mathematical Sciences - New York University}\\
+        \vspace{2cm}
+        \Large
+        \textbf{Spring, 2023}
+        
+    \end{center}
+\end{titlepage}
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+\setcounter{chapter}{-1}
+% -----------------------------------
+\chapter{Before the Course Materials}
+%\addcontentsline{toc}{chapter}{READ ME}
+%\phantomsection
+\section{READ ME}
+This document is a compilation of the worksheets used in the recitation sessions for \href{https://math.nyu.edu/dynamic/courses/undergrad/math-ua-263/}{NYU Undergraduate Partial Differential Equations} in Spring of 2023. 
+
+The \LaTeX\ files of this document can be found at \url{https://github.com/Empyreal092/UgradPDE_Worksheet}.
+
+% For students in my recitations: the problems marked with *** are not in the weekly version of the worksheets. They are extra problems.
+
+\chapter{Transport equations}
+\section{Domain of dependence}
+[From \cite{Olver_14}, Exercise 2.2.12] A sensor situated at position $x=1$ monitors the concentration of a pollutant $u(t,1)$ as a function of $t$ for $t\geq 0$. Assuming that the pollutant is transported with wave speed $c=3$, at what locations $x$ can you determine the initial concentration $u(0,x)$? 
+
+Remark: this is a first example of an inverse problem. To explain a sub-class of inverse problems: ``forward'' problem is the evolution of the PDE from the initial condition, and inverse problem tries to infer information about the initial condition from observations of the solution at a later time (and a specific location). Things get significantly more difficult when diffusion, modeled by the heat equation, is in the dynamics. Inverse problem is a big field with active research. We will come back to explore more of it later on.
+
+\section{Initial and boundary conditions}
+[From \cite{Olver_14}, Exercise 2.2.14] Let $c>0$. Consider the uniform transport equation
+\begin{align}
+    u_t+cu_x = 0
+\end{align}
+restricted to the quarter-place $Q = \{x>0, t>0\}$ and subject to initial conditions
+\begin{align}
+    u(0,x) = f(x) \qdt{for} x\geq 0
+\end{align}
+along with the boundary condition
+\begin{align}
+    u(t,0) = g(t) \qdt{for} t\geq 0.
+\end{align}
+
+\subsection{}
+For which initial and boundary conditions does a classical solution to this initial-boundary value problem exists? Write down a formula for the solution.
+
+\subsection{}
+On which regions are the effects of the initial conditions felt? What about the boundary conditions? Is there any interaction between the two?
+
+\section{Blow-up of solution}
+[From \cite{ShearerLevy_15}, Exercise 3.8] 
+
+\subsection{}
+Use the method of characteristics to solve the initial value problem: 
+\begin{align}
+    u_t+tu_x = u^2,\quad -\infty<x<\infty,\; 0<t<1
+\end{align}
+with initial condition 
+\begin{align}
+    u(x,0) = \frac{1}{1+x^2}.
+\end{align}
+
+\subsection{}
+Show that the solution blows up as $t\to 1^-$:
+\begin{align}
+    \lim_{t\to 1^-} \max_x u(x,t) = \infty.
+\end{align}
+
+Remark: for a similar problem, see \cite[Exercise 2.2.11]{Olver_14}.
+
+\chapter{Wave equations}
+\section{Symmetries of the wave equation}
+[From \cite{ShearerLevy_15}, Exercise 4.3] Show that if $u(x,t)\in C^3$ is a solution of the wave equation
+\begin{align}
+    u_{tt} = c^2u_{xx},
+\end{align}
+then so are the following functions:
+
+\subsection{}
+For any $y\in\mathbb{R}$, the function $u(x-y,t)$
+
+\subsection{}
+Both $u_x$ and $u_t$.
+
+\subsection{}
+For any $a\in\mathbb{R}$, the function $u(ax,at)$. 
+
+\section{Domain of dependence}
+[From \cite{ShearerLevy_15}, Exercise 4.6] Suppose $u$ satisfies the wave equation with $c=1$ for $x>0$. We want to find a solution of the PDE for $x>0, t>0$, that satisfy the initial conditions
+\begin{align}
+    & u(x,0) = \phi(x)\\
+    & u_t(x,0) = \psi(x),
+\end{align}
+and the boundary condition
+\begin{align}
+    u_x(0,t) = 0.
+\end{align}
+
+\subsection{}
+Solve for $u(x,t)$
+
+\subsection{}
+Assume $\supp\phi = \supp\psi=[1,2]$, where can you guarantee that $u=0$ for $x>0, t>0$. 
+
+\section{Fourier series and the expansions of $\pi$}
+\subsection{}
+Show the Fourier series of periodic extension of $x$ on the interval $(-\pi,\pi)$ is
+\begin{align}
+    x = \sum_{n=1}^\infty \frac{2(-1)^{n+1}}{n}\sin(nx).
+\end{align}
+
+\subsection{}
+Show this expansion of $\pi$:
+\begin{align}
+    \frac{\pi}{4} = 1-\frac{1}{3}+\frac{1}{5}-\frac{1}{7}+\dots
+\end{align}
+
+\subsection{}
+Show the solution to the Basel problem is
+\begin{align}
+    1+\frac{1}{4}+\frac{1}{9}+\frac{1}{16} + \dots = \frac{\pi^2}{6}.
+\end{align}
+
+\section{Challenging wave equation problem}
+[From Spring 2019 of Applied Differential Equations qualifying exam at UCLA, Problem 1\footnote{\url{https://ww3.math.ucla.edu/wp-content/uploads/2021/09/ade-19S.pdf}}]  Let $u(x,t)$ solve the initial value problem
+\begin{align}
+    \begin{cases}
+        u_{tt}+u_{xt}-2u_{xx} = 0,\quad x\in\mathbb{R}, t>0,\\
+        u(x,0) = g(x),\\
+        u_t(x,0) = h(x).
+    \end{cases}
+\end{align}
+
+\subsection{}
+Derive a formula for $u$ in terms of $g$ and $h$, when $g$ and $h$ are $C^2$. 
+
+Hint: Consider how to simplify the equation into something more obviously like the wave equation
+by making a change of coordinate system: $(x,t)\to (\zeta,t)$ where $\zeta = x-vt$ for $v$ appropriately determined. 
+
+\subsection{}
+Next consider the boundary value problem 
+\begin{align}
+    \begin{cases}
+        u_{tt}+u_{xt}-2u_{xx} = 0,\quad x\in[0,1], t>0,\\
+        u(0,t) = u(1,t) = 0.
+    \end{cases}
+\end{align}
+Show that a smooth solution $u$ to above problem must be zero if $u(x,0)=u_t(x,0)=0$. 
+
+Hint: use an energy argument. Try the energy for the wave equation. 
+
+\section{Equipartition of energy}
+[From \cite{Evans_10}, Exercise 2.24] Let $u$ solve the initial-value problem for the wave equation in one dimension:
+\begin{align}
+    u_{tt}-u_{xx} = 0 &\qdt{in} \mathbb{R}\times(0,\infty)\\
+    u=0, u_t=0 &\qdt{on} \mathbb{R}\times\{t=0\}.
+\end{align}
+Suppose $g,h$ have compact support. We define the kinetic energy
+\begin{align}
+    k(t):= \frac{1}{2}\int_{-\infty}^\infty u_t^2(x,t)\;\de x
+\end{align}
+and the potential energy
+\begin{align}
+    p(t):= \frac{1}{2}\int_{-\infty}^\infty u_x^2(x,t)\;\de x.
+\end{align}
+We know that the total energy $k(t)+p(t)$ is constant in $t$. Show that $k(t)=p(t)$ for all large enough times $t$. 
+
+\chapter{Conservation Laws}
+\section{First time of shock}
+[See \cite{ShearerLevy_15}, \S 3.4.1] This is an alternative way to derive the first time of shock for Burgers' equation. We have the Burgers' equation:
+\begin{align}
+    & u_t + uu_x = 0\label{eq:burgers}\\
+    & u(x,0) = g(x).\nonumber
+\end{align}
+
+\subsection{}
+Take the $x$-derivative of the Burgers' equation and derive an equation for the evolution of $u_x$. We name $v:= u_x$.
+
+\subsection{}
+Transform the above PDE into an ODE with a change of variable. Hint: try the Galilean transformation again.
+
+\subsection{}
+Solve this ODE and recover the first time of shock result you learned in lecture.
+
+\section{Traveling backwards in traffic law}
+We have the Lighthill-Whitham-Richards model for traffic flow
+\begin{align}
+    \rho_t + F(\rho)_x = 0.
+\end{align}
+In particular we use the Greenshields model for the flux:
+\begin{align}
+    F(\rho) = \rho(1-\rho).
+\end{align}
+
+\subsection{}
+What is the speed of characteristics for the Greenshields model?
+
+\subsection{}
+Notice that when the traffic density is large ($\rho>1/2$), the characteristics actually travel backwards (against the direction of flow of cars). Can you explain the backward movement of characteristics physically?
+
+\section{Integral solution to 1D conservation law}
+Note: this is above and beyond what you need for this undergraduate level class. We would talk about it only if we have time. But learning the rigorous theory is useful if you need to extend what we learned in this class to a more general context. Test functions will show up later in class. Lastly, thinking about this is a fun intellectual exercise. :)
+
+[See \cite{Evans_10}, \S 3.4.1] At a shock, classic notion of solution to a PDE breaks down since we cannot take derivatives of the solution. We must devise some way to interpret a less regular function $u$ as somehow ``solving'' the PDE. The idea of an integral (weak) solution is to transfer the derivatives to a test function $v$ via integration by parts. 
+
+More precisely, assume
+\begin{align}
+    v: \mathbb{R}\times[0,\infty)\to\mathbb{R} \text{ is smooth ($C^\infty$), with compact support}.\label{eq:test_func}
+\end{align}
+We say that $u\in L^\infty(\mathbb{R}\times(0,\infty))$ is an integral solution of \eqref{eq:cons_Fu}, if
+\begin{align}
+    \int^\infty_0\int^\infty_{-\infty} uv_t+F(u)v_x\;\de x\de t+\int^\infty_{-\infty} gv\;\de x|_{t=0} = 0
+\end{align}
+for all test function $v$ satisfying \eqref{eq:test_func}.
+
+Note: For this to work such $v$ needs to exist. One example of such $v$ is the ``bump function''. Their existence might be surprising for a first-timer, but they are essential tools in analysis of PDE so get used to them.
+
+\subsection{}
+Assume $u$ is smooth, use integration by part to show that the above condition for the integral solution is equivalent to the requirement for $u$ to be a classic solution.
+
+Note: here we use a theorem that states: for a continuous function $f$, if $f(x_0)>0$ for some $x_0$, there exists a small ball around $x_0$ such that for all $y\in B(x_0,\epsilon)$, $f(y)>0$. Review your analysis notes, or look this up.
+
+\subsection{}
+Now assume that $u$ has a jump. Perform integration by parts again to obtain the Rankine-Hugoniot condition.
+
+To do this, assume $v$ is zero at $t=0$ to make the initial condition term zero. More importantly, the boundary terms from integration by parts are not zero at the jump. They will give you the speed of the shock.
+
+\subsection{}
+That was a lot of work. Is this enough? Unfortunately no. The integral solutions are not unique, especially for rarefaction wave. We also need the entropy condition. You will learn this next week.
+
+\section{Burgers' with shock and expansion fan}
+Solve the Burgers' equation on the infinite domain with the initial condition:
+\begin{align}
+    u(x,0) = \begin{cases}
+        1 & \text{for\;} 0\leq x\leq 1,\\
+        0 & \text{otherwise}.
+    \end{cases}
+\end{align}
+
+\subsection{}
+At $t=0$, what happens at $x=0$? What happens at $x=1$?
+
+\subsection{}
+Draw the solution at $t=2$. 
+
+\subsection{}
+Continue for solution past $t=2$. Draw the shock curve and some sample characteristic lines in an $x-t$ plot as time progresses. 
+
+\section{Periodic Burgers'}
+Solve the Burgers' equation on the periodic $x\in[0,1]$ with the initial condition
+\begin{align}
+    u(x,0) = \begin{cases}
+        1 & \text{for\;} x\in[0,1/2),\\
+        0 & \text{for\;} x\in[1/2,1).
+    \end{cases}
+\end{align}
+
+What happens at time $t=1$? Continue your solution past time $t=1$ and draw the shock curve and some sample characteristic lines in an $x-t$ plot at time progress. 
+
+\section{Green light on a two way street}
+[From Esteban Tabak's PDE note\footnote{See the end of note \url{https://math.nyu.edu/~tabak/PDEs/Traffic_flow.pdf}}] I will quote Esteban Tabak for his wonderful description of this traffic phenomenon
+\begin{displayquote}
+    You are in a long traffic queue in a two-way street--say Park Avenue--waiting for the green light. When the light finally turns green, the first car in the queue moves, then the second, and so on: a wave propagates backward through the queue, telling the cars when to start. On the other hand, you see on your left the first cars moving the opposite way, as they start with the green light at the intersection and soon reach your point in the queue. My observation is--please confirm this with your own experience!--that the time at which the first car going the other way reaches your position in the queue agrees almost exactly with your starting time. 
+\end{displayquote}
+We will give an explanation of this phenomenon using the Greenshields model for the traffic flux:
+\begin{align}
+    F(\rho) = \rho(1-\rho).
+\end{align}
+
+\subsection{}
+What happens in the Greenshields model when the traffic light turns green?
+
+\subsection{}
+Calculate the speed of the two ends of the expansion fan.
+
+\section{Red light, green light}
+[From \cite{ShearerLevy_15}, \S 13.2.1] A line of traffic with uniform density $\overline{\rho}<1/2$ approaches a traffic light located at $x=0$. We start the solution at $t=0$ with the initial condition
+\begin{align}
+    u(x,0) = \begin{cases}
+        \overline{\rho} & \text{for\;} x\leq 0,\\
+        0 & \text{for\;} x>0.
+    \end{cases}
+\end{align}
+
+The traffic light stays red till time $t_1$ and turns green. 
+
+\subsection{}
+Solve the traffic problem during $t\in[0,t_1]$. What is the direction of the shock? Does this make sense intuitively?
+
+\subsection{}
+Calculate the first time $t>0$ when there is no maximum density $\rho=1$ in the domain. Name this time $t_2$.
+
+\subsection{}
+Solve the traffic problem past time $t_2$ by drawing the shock curve and some sample characteristic lines. Will the shock pass $x=0$ again? 
+
+$t_3-t_1$ is the shortest a well-designed green light should last. After that the traffic behind the traffic light is restored to the incoming density $\overline{\rho}$ and the cycle continues.
+
+\section{Deriving expansion fan solutions from scaling symmetry}
+We solve the Riemann problem for a conservation law with strictly convex flux $F(u)$:
+\begin{align}
+    & u_t+F(u)_x = 0\\
+    & u(x,0) = \begin{cases}
+        u_L &\text{for }x<0\\
+        u_R &\text{for }x\geq 0
+    \end{cases}.
+\end{align}
+
+\subsection{}
+What is the relation between $u_L$ and $u_R$ that admits an expansion fan solution, instead of a shock solution that satisfy the Lax stability criterion. 
+
+\subsection{}
+Show that the change of variable $\tau=at$, $y=ax$ does not change the Riemann problem. 
+
+\subsection{}
+This scaling symmetry inspires us to look for solution of the form $u(x,t) = \phi(\zeta)$ where $\zeta = x/t$. Plug this ansatz into the Riemann problem to find out what $\phi$ should be.
+
+\subsection{}
+Put all the pieces together and obtain the expansion fan solution
+\begin{align}
+    u(x,t) = \begin{cases}
+        u_L &\text{if } x \leq F'(u_L) t, \\
+        (F')^{-1}(x/t) &\text{if } F'(u_L) t \leq x \leq F'(u_R) t, \\
+        u_R &\text{if } F'(u_R) t \leq x.
+    \end{cases}
+\end{align}
+
+\chapter{Heat equation}
+
+
+\newpage
+\printbibliography
+
+\end{document}
