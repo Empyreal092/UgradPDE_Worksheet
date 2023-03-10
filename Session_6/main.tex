@@ -1,0 +1,142 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsfonts,amsmath}
+\usepackage{graphicx,float}
+\usepackage{csquotes}
+% -----------------------------------
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  linkbordercolor={0 0 1}
+}
+% -----------------------------------
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{citation.bib}
+% -----------------------------------
+\usepackage{fancyhdr}
+\newcommand\course{MATH-UA.0263\\Partial Differential Equations}
+\newcommand\hwnumber{6}                  % <-- homework number
+\newcommand\NetIDa{Ryan Sh\`iji\'e D\`u} 
+\newcommand\NetIDb{March 10th, 2023}
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Worksheet \hwnumber}}
+\rhead{\course}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+% -----------------------------------
+\usepackage{titlesec}
+\renewcommand\thesubsection{(\arabic{section}.\alph{subsection})}
+\titleformat{\subsection}[runin]
+        {\normalfont\bfseries}
+        {\thesubsection}% the label and number
+        {0.5em}% space between label/number and subsection title
+        {}% formatting commands applied just to subsection title
+        []% punctuation or other commands following subsection title
+% -----------------------------------
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+% -----------------------------------
+\input{../command.tex}
+\begin{document}
+
+\section{Heat flux and the Robin boundary condition}
+\subsection{}
+Write the heat equation as a conservation law. What is the heat flux function? 
+
+Relating the flux to its gradient is called the Fourier's law or the Fick's law.
+
+\subsection{}
+Imagine we have a metal rod where one end of it is submerged in cold water. The water has temperature $T_L$ and is moving. The heat flux due to convection is
+\begin{align}
+    q = h(T-T_L)
+\end{align}
+where $h$ is called the convection coefficient.
+
+This heat flux must be equal to the heat flux at the end of rod which follows the Fourier's law. From this obtain that $\theta = T-T_L$ must satisfy the homogeneous robin boundary condition.
+
+% \section{Application of the fundamental solution to solve Dirichlet problems}
+% \subsection{}
+% Error function
+
+% \subsection{}
+% Combine them
+
+% \subsection{}
+% [From \cite{Olver_14}, Problem 8.1.1]
+
+\section{Alternative statements of the method of images}
+[From \cite{ShearerLevy_15}, Problem 5.3] We have $\Phi$ the fundamental solution of the heat equation.
+
+\subsection{}
+Let $g:[0,\infty)\to\mathbb{R}$ be a bounded integrable function. Prove directly that
+\begin{align}
+    u(x,t)=\int_0^\infty (\Phi(x-y,t)-\Phi(x+y,t))g(y)\;\de y
+\end{align}
+is an odd function of $x\in\mathbb{R}$ for each $t>0$.
+
+\subsection{}
+Let $h:\mathbb{R}\to\mathbb{R}$ be an odd bounded integrable function. Prove that
+\begin{align}
+    u(x,t)=\int^\infty_{-\infty} \Phi(x-y,t)h(y)\;\de y
+\end{align}
+is an odd function of $x\in\mathbb{R}$ for each $t > 0$. That is, the symmetry in the initial data is carried through to the same symmetry in the solution.
+
+\section{Maximum and variance of the fundamental solution}
+[Adapted from \cite{Olver_14}, Problem 8.1.6]
+
+\subsection{}
+What is the maximum value of the fundamental solution at time $t$?
+
+\subsection{}
+Calculate the ``variance'' of the fundamental solution:
+\begin{align}
+    \var(u(t)) = \int_\mathbb{R} x^2 u(t,x)\;\de x.
+\end{align}
+One could do this directly. Alternatively, calculate how the variance change in time:
+\begin{align}
+    \frac{\de}{\de t}\var(u(t)) = \frac{\de}{\de t}\int_\mathbb{R} x^2 u(t,x)\;\de x.
+\end{align}
+
+\subsection{}
+Can you justify the claim that its width is proportional to $\sqrt{t}$?
+
+\section{Advection-diffusion equation}
+[From \cite{ShearerLevy_15}, Problem 5.10] Devise a change of variable corresponding to a moving frame of reference to solve the initial value problem for the advection-diffusion equation with constant speed $c$
+\begin{align}
+    &u_t+cu_x = ku_{xx},\quad -\infty<x<\infty, t>0,\\
+    &u(x,0) = g(x),\quad -\infty<x<\infty
+\end{align}
+
+\section{Heat equation with damping}
+[From \cite{ShearerLevy_15}, Problem 5.9] Consider the initial value problem
+\begin{align}
+    &u_t+du = ku_{xx},\quad -\infty<x<\infty, t>0,\\
+    &u(x,0) = g(x),\quad -\infty<x<\infty
+\end{align}
+with constant $d$, and given integrable function $g$.
+
+\subsection{}
+Use the change of variable $u(x, t) = e^{-dt}v(x,t)$ to find $u$ using the
+fundamental solution.
+
+\subsection{}
+What is the effect of the constant $d$?
+
+\subsection{}
+Suppose $d = d(t)$ is a given continuous function. What would be a suitable
+change of variable to solve the problem?
+
+
+\vfill
+\printbibliography
+
+
+\end{document}
