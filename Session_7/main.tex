@@ -1,0 +1,120 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsfonts,amsmath}
+\usepackage{graphicx,float}
+\usepackage{csquotes}
+% -----------------------------------
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  linkbordercolor={0 0 1}
+}
+% -----------------------------------
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\addbibresource{citation.bib}
+% -----------------------------------
+\usepackage{fancyhdr}
+\newcommand\course{MATH-UA.0263\\Partial Differential Equations}
+\newcommand\hwnumber{7}                  % <-- homework number
+\newcommand\NetIDa{Ryan Sh\`iji\'e D\`u} 
+\newcommand\NetIDb{March 24th, 2023}
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Worksheet \hwnumber}}
+\rhead{\course}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+% -----------------------------------
+\usepackage{titlesec}
+\renewcommand\thesubsection{(\arabic{section}.\alph{subsection})}
+\titleformat{\subsection}[runin]
+        {\normalfont\bfseries}
+        {\thesubsection}% the label and number
+        {0.5em}% space between label/number and subsection title
+        {}% formatting commands applied just to subsection title
+        []% punctuation or other commands following subsection title
+% -----------------------------------
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+% -----------------------------------
+\input{../command.tex}
+\begin{document}
+
+\section{Properties of convolution}\label{sec:p1}
+\subsection{}
+Convolution of two Gaussians is still a Gaussian: take $f(x) = e^{-ax^2}$ and $g(x) = e^{-bx^2}$, calculate explicitly $f*g$ and show that it is still a Gaussian.
+
+Hint: complete the square.
+
+Remark: More generally, suppose $f$ is the probability density function (PDF) of Gaussian random variable with mean $\mu_1$ and variance $\sigma_1^2$, and $g$ with mean $\mu_2$ and variance $\sigma_2^2$, their convolution $f*g$ is the PDF of Gaussian random variable with mean $(\mu_1+\mu_2)$ and variance $(\sigma_1^2+\sigma_2^2)$. But calculating this explicitly is cumbersome. It is easier to show this using Fourier transform (FT), where the FT of Gaussian is still Gaussian, and the FT of convolution is the product of the two FTs (the convolution theorem). That is:
+\begin{align}
+    \mathcal{F}(f*g) = \mathcal{F}(f)\cdot \mathcal{F}(g)
+\end{align}
+where $\mcal{F}$ deotes the Fourier transform.
+
+\subsection{}
+Convolution is associative: show that
+\begin{align}
+    (f*g)*h = f*(g*h).
+\end{align}
+
+\section{Continuous space, discrete time random walk}
+Instead of taking a step on a grid, we imagine a random walk on continuous $\mathbb{R}$. Suppose the walker starts off at $0$, at the next timestep of size $\Delta t$, the walker will be at location $\Delta x$ with probability
+\begin{align}
+    p(\Delta x) = \frac{1}{ \sqrt{2\pi d\Delta t} } e^{-\frac{1}{2}\frac{\Delta x^2}{d\Delta t}}.
+\end{align}
+That is, the probability that the walker will move $\Delta x$ is a centered Gaussian random variable with variance $d\Delta t$. This is a continuous space version of discrete random walk.
+
+\subsection{}
+Assume at initial time the probability that the walker is located at $x_0$ follows PDF $f(x_0)$, what is the probability that it will be at $y$ after a $\Delta t$ step?
+
+Remark: $y$ is a random variable that is the sum of $x_0$ and $\Delta x$, which themselves are random variables. We just shown that the PDF of $y$ is the convolution of the PDF of $x_0$ and the PDE of $\Delta x$. This is true for the sum of any two independent random variables.
+
+\subsection{}
+Take another step of $\Delta t'$, use the facts in Problem \ref{sec:p1} to write the probability of the walker to be at $y$ after the combined $\Delta t+\Delta t'$ step without explicit calculation.
+
+\subsection{}
+Relate the above formula to the heat kernel and thus show that in the limit of continuous time, the PDF evolves following the heat equation.
+
+\subsection{}
+This example is special because the PDF of the step is Gaussian. How about more general PDFs? How about the discrete random walk? Under mild conditions (the step has zero mean and finite variance), the sum of many independent walks converges to a Gaussian. This is due to the central limit theorem(CLT):
+\begin{displayquote}
+    Suppose $\{X_{1},\ldots ,X_{n},\ldots \}$ is a sequence of independent and identically distributed (i.i.d.) random variables with $\mathbb {E} [X_{i}]=\mu$ and $\var[X_{i}]=\sigma ^{2}<\infty$. Then as $n$ approaches infinity, the sum of $(1/\sqrt {n}) (X_n-\mu)$ converges in distribution to a normal $\mathcal {N}(0,\sigma ^{2})$:
+    \begin{align}
+        \frac{1}{\sqrt{n}}\sum_{i=1}^n (X_i-\mu) \xrightarrow{d} \mathcal {N}(0,\sigma ^{2}).
+    \end{align}
+\end{displayquote}
+The theorem shows the importance of Gaussian random variable as it naturally arises from the sum of i.i.d. random variables. This is why reason the Gaussian is ubiquitous in nature (e.g.: the evolution of heat). 
+
+Now use this theorem to relate (informally) the discrete random walk to the heat equation.
+
+Remark: this is a different approach to show the (space and time) continuous limit of discrete random walk follows the heat equation. You could check the answer of your solution to the HW problems using this line of thinking.
+
+\section{Stability requirement of finite difference schemes}
+In the HW you will show that an explicit finite difference scheme for the heat equation have the requirement for the time step size $\Delta t$ to be proportional to $\Delta x^2$. This means we need \emph{very} small time steps if the spatial resolution is fine ($\Delta x$ is small). However, this is an inescapable requirement for explicit method for the heat equation. We will understand this using the domain of dependence of the heat equation.
+
+\subsection{}
+Convince yourself that the domain of dependence of the heat equation is the whole domain.
+
+\subsection{}
+Now we calculate the numerical domain of dependence. Here we define the numerical domain of dependence at time $T$ and grid point $X$ to be the spatial grid points at time $0$ that influence the result at $(T,X)$.
+
+Assume that $\Delta t$ is proportional to $\Delta x$, how does the numerical domain of dependence change as $\Delta x\to 0$? How about if $\Delta t$ is proportional to $\Delta x^2$?
+
+\subsection{}
+The necessary condition for the stability of a finite difference scheme is that its numerical domain of dependence should include the actual domain of dependence of the PDE as $\Delta x\to 0$. We can understand this as a restatement of interpolation is stable while extrapolation is not. Therefore an explicit scheme for the heat equation cannot have $\Delta t$ proportional to $\Delta x$. 
+
+Remark: One way out of this is to use an implicit timestepping scheme.
+
+\vfill
+\printbibliography
+
+
+\end{document}
