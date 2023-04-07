@@ -51,12 +51,12 @@
 In the HW you have one definition of the Fourier transform and its associated inversion formula:
 \begin{align}
     &\hat f(\xi) = \int f(x)e^{-i\xi x} \;\de x,\\
-    &f(x) = \int \hat f(x)e^{+i\xi x} \;\de \xi \cdot\frac{1}{2\pi}.
+    &f(x) = \int \hat f(\xi)e^{+i\xi x} \;\de \xi \cdot\frac{1}{2\pi}.
 \end{align}
 An alternative formula that absorbs the $2\pi$ factor into the Fourier kernal is:
 \begin{align}
     &\hat f(\xi ) = \int f(x)e^{-2\pi i\xi x} \;\de x,\\
-    &f(x) = \int \hat f(x)e^{+2\pi i \xi x} \;\de \xi \label{eq:Four_inv}.
+    &f(x) = \int \hat f(\xi)e^{+2\pi i \xi x} \;\de \xi \label{eq:Four_inv}.
 \end{align}
 Show that they are equivalent. I would use the second version in this note.
 

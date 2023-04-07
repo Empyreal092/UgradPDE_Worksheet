@@ -378,6 +378,284 @@ Put all the pieces together and obtain the expansion fan solution
 \end{align}
 
 \chapter{Heat Equation}
+\section{Heat flux and the Robin boundary condition}
+\subsection{}
+Write the heat equation as a conservation law. What is the heat flux function? 
+
+Relating the flux to its gradient is called the Fourier's law or the Fick's law.
+
+\subsection{}
+Imagine we have a metal rod where one end of it is submerged in cold water. The water has temperature $T_L$ and is moving. The heat flux due to convection is
+\begin{align}
+    q = h(T-T_L)
+\end{align}
+where $h$ is called the convection coefficient.
+
+This heat flux must be equal to the heat flux at the end of rod which follows the Fourier's law. From this obtain that $\theta = T-T_L$ must satisfy the homogeneous robin boundary condition.
+
+% \section{Application of the fundamental solution to solve Dirichlet problems}
+% \subsection{}
+% Error function
+
+% \subsection{}
+% Combine them
+
+% \subsection{}
+% [From \cite{Olver_14}, Problem 8.1.1]
+
+\section{Alternative statements of the method of images}
+[From \cite{ShearerLevy_15}, Problem 5.3] We have $\Phi$ the fundamental solution of the heat equation.
+
+\subsection{}
+Let $g:[0,\infty)\to\mathbb{R}$ be a bounded integrable function. Prove directly that
+\begin{align}
+    u(x,t)=\int_0^\infty (\Phi(x-y,t)-\Phi(x+y,t))g(y)\;\de y
+\end{align}
+is an odd function of $x\in\mathbb{R}$ for each $t>0$.
+
+\subsection{}
+Let $h:\mathbb{R}\to\mathbb{R}$ be an odd bounded integrable function. Prove that
+\begin{align}
+    u(x,t)=\int^\infty_{-\infty} \Phi(x-y,t)h(y)\;\de y
+\end{align}
+is an odd function of $x\in\mathbb{R}$ for each $t > 0$. That is, the symmetry in the initial data is carried through to the same symmetry in the solution.
+
+\section{Maximum and variance of the fundamental solution}
+[Adapted from \cite{Olver_14}, Problem 8.1.6]
+
+\subsection{}
+What is the maximum value of the fundamental solution at time $t$?
+
+\subsection{}
+Calculate the ``variance'' of the fundamental solution:
+\begin{align}
+    \var(u(t)) = \int_\mathbb{R} x^2 u(t,x)\;\de x.
+\end{align}
+One could do this directly. Alternatively, calculate how the variance change in time:
+\begin{align}
+    \frac{\de}{\de t}\var(u(t)) = \frac{\de}{\de t}\int_\mathbb{R} x^2 u(t,x)\;\de x.
+\end{align}
+
+\subsection{}
+Can you justify the claim that its width is proportional to $\sqrt{t}$?
+
+\section{Advection-diffusion equation}
+[From \cite{ShearerLevy_15}, Problem 5.10] Devise a change of variable corresponding to a moving frame of reference to solve the initial value problem for the advection-diffusion equation with constant speed $c$
+\begin{align}
+    &u_t+cu_x = ku_{xx},\quad -\infty<x<\infty, t>0,\\
+    &u(x,0) = g(x),\quad -\infty<x<\infty
+\end{align}
+
+\section{Heat equation with damping}
+[From \cite{ShearerLevy_15}, Problem 5.9] Consider the initial value problem
+\begin{align}
+    &u_t+du = ku_{xx},\quad -\infty<x<\infty, t>0,\\
+    &u(x,0) = g(x),\quad -\infty<x<\infty
+\end{align}
+with constant $d$, and given integrable function $g$.
+
+\subsection{}
+Use the change of variable $u(x, t) = e^{-dt}v(x,t)$ to find $u$ using the
+fundamental solution.
+
+\subsection{}
+What is the effect of the constant $d$?
+
+\subsection{}
+Suppose $d = d(t)$ is a given continuous function. What would be a suitable
+change of variable to solve the problem?
+
+\section{Properties of convolution}\label{sec:p1}
+\subsection{}
+Convolution of two Gaussians is still a Gaussian: take $f(x) = e^{-ax^2}$ and $g(x) = e^{-bx^2}$, calculate explicitly $f*g$ and show that it is still a Gaussian.
+
+Hint: complete the square.
+
+Remark: More generally, suppose $f$ is the probability density function (PDF) of Gaussian random variable with mean $\mu_1$ and variance $\sigma_1^2$, and $g$ with mean $\mu_2$ and variance $\sigma_2^2$, their convolution $f*g$ is the PDF of Gaussian random variable with mean $(\mu_1+\mu_2)$ and variance $(\sigma_1^2+\sigma_2^2)$. But calculating this explicitly is cumbersome. It is easier to show this using Fourier transform (FT), where the FT of Gaussian is still Gaussian, and the FT of convolution is the product of the two FTs (the convolution theorem). That is:
+\begin{align}
+    \mathcal{F}(f*g) = \mathcal{F}(f)\cdot \mathcal{F}(g)
+\end{align}
+where $\mcal{F}$ deotes the Fourier transform.
+
+\subsection{}
+Convolution is associative: show that
+\begin{align}
+    (f*g)*h = f*(g*h).
+\end{align}
+
+\section{Continuous space, discrete time random walk}
+Instead of taking a step on a grid, we imagine a random walk on continuous $\mathbb{R}$. Suppose the walker starts off at $0$, at the next timestep of size $\Delta t$, the walker will be at location $\Delta x$ with probability
+\begin{align}
+    p(\Delta x) = \frac{1}{ \sqrt{2\pi d\Delta t} } e^{-\frac{1}{2}\frac{\Delta x^2}{d\Delta t}}.
+\end{align}
+That is, the probability that the walker will move $\Delta x$ is a centered Gaussian random variable with variance $d\Delta t$. This is a continuous space version of discrete random walk.
+
+\subsection{}
+Assume at initial time the probability that the walker is located at $x_0$ follows PDF $f(x_0)$, what is the probability that it will be at $y$ after a $\Delta t$ step?
+
+Remark: $y$ is a random variable that is the sum of $x_0$ and $\Delta x$, which themselves are random variables. We just shown that the PDF of $y$ is the convolution of the PDF of $x_0$ and the PDE of $\Delta x$. This is true for the sum of any two independent random variables.
+
+\subsection{}
+Take another step of $\Delta t'$, use the facts in Problem \ref{sec:p1} to write the probability of the walker to be at $y$ after the combined $\Delta t+\Delta t'$ step without explicit calculation.
+
+\subsection{}
+Relate the above formula to the heat kernel and thus show that in the limit of continuous time, the PDF evolves following the heat equation.
+
+\subsection{}
+This example is special because the PDF of the step is Gaussian. How about more general PDFs? How about the discrete random walk? Under mild conditions (the step has zero mean and finite variance), the sum of many independent walks converges to a Gaussian. This is due to the central limit theorem(CLT):
+\begin{displayquote}
+    Suppose $\{X_{1},\ldots ,X_{n},\ldots \}$ is a sequence of independent and identically distributed (i.i.d.) random variables with $\mathbb {E} [X_{i}]=\mu$ and $\var[X_{i}]=\sigma ^{2}<\infty$. Then as $n$ approaches infinity, the sum of $(1/\sqrt {n}) (X_n-\mu)$ converges in distribution to a normal $\mathcal {N}(0,\sigma ^{2})$:
+    \begin{align}
+        \frac{1}{\sqrt{n}}\sum_{i=1}^n (X_i-\mu) \xrightarrow{d} \mathcal {N}(0,\sigma ^{2}).
+    \end{align}
+\end{displayquote}
+The theorem shows the importance of Gaussian random variable as it naturally arises from the sum of i.i.d. random variables. This is why reason the Gaussian is ubiquitous in nature (e.g.: the evolution of heat). 
+
+Now use this theorem to relate (informally) the discrete random walk to the heat equation.
+
+Remark: this is a different approach to show the (space and time) continuous limit of discrete random walk follows the heat equation. You could check the answer of your solution to the HW problems using this line of thinking.
+
+\section{Stability requirement of finite difference schemes}
+In the HW you will show that an explicit finite difference scheme for the heat equation have the requirement for the time step size $\Delta t$ to be proportional to $\Delta x^2$. This means we need \emph{very} small time steps if the spatial resolution is fine ($\Delta x$ is small). However, this is an inescapable requirement for explicit method for the heat equation. We will understand this using the domain of dependence of the heat equation.
+
+\subsection{}
+Convince yourself that the domain of dependence of the heat equation is the whole domain.
+
+\subsection{}
+Now we calculate the numerical domain of dependence. Here we define the numerical domain of dependence at time $T$ and grid point $X$ to be the spatial grid points at time $0$ that influence the result at $(T,X)$.
+
+Assume that $\Delta t$ is proportional to $\Delta x$, how does the numerical domain of dependence change as $\Delta x\to 0$? How about if $\Delta t$ is proportional to $\Delta x^2$?
+
+\subsection{}
+The necessary condition for the stability of a finite difference scheme is that its numerical domain of dependence should include the actual domain of dependence of the PDE as $\Delta x\to 0$. We can understand this as a restatement of interpolation is stable while extrapolation is not. Therefore an explicit scheme for the heat equation cannot have $\Delta t$ proportional to $\Delta x$. 
+
+Remark: One way out of this is to use an implicit timestepping scheme.
+
+\chapter{Dispersive Waves}
+\section{Alternative formula for Fourier transform}
+In the HW you have one definition of the Fourier transform and its associated inversion formula:
+\begin{align}
+    &\hat f(\xi) = \int f(x)e^{-i\xi x} \;\de x,\\
+    &f(x) = \int \hat f(\xi)e^{+i\xi x} \;\de \xi \cdot\frac{1}{2\pi}.
+\end{align}
+An alternative formula that absorbs the $2\pi$ factor into the Fourier kernal is:
+\begin{align}
+    &\hat f(\xi ) = \int f(x)e^{-2\pi i\xi x} \;\de x,\\
+    &f(x) = \int \hat f(\xi)e^{+2\pi i \xi x} \;\de \xi \label{eq:Four_inv}.
+\end{align}
+Show that they are equivalent. I would use the second version in this note.
+
+\section{Poisson summation formula}
+[From \cite{SteinShakarchi_03}, \S5.3] Given a Schwartz function $f$ on the real line, we can construct a new periodic (with period 1) function on the circle by the recipe
+\begin{align}
+    F_1(x) = \sum_{n=-\infty}^\infty f(x+n).
+\end{align}
+Another way is by Fourier analysis. Start with \eqref{eq:Four_inv} and consider its discrete analogue, where the integral is replaced by a sum:
+\begin{align}
+    F_2(x) = \sum_{n=-\infty}^\infty \hat f(n)e^{2\pi inx}.
+\end{align}
+A technical note, both of these sum are convergent absolutely and uniformly (for any compact interval) because of the assumption that $f$ is in the Schwartz space. Therefore, they are continuous. 
+
+\subsection{}
+Show that the two approaches are the same. That is, show the Poisson summation formula
+\begin{align}
+    \sum_{n=-\infty}^\infty f(x+n) = \sum_{n=-\infty}^\infty \hat f(n)e^{2\pi inx}.
+\end{align}
+In particular we have the corollary
+\begin{align}
+    \sum_{n=-\infty}^\infty f(n) = \sum_{n=-\infty}^\infty \hat f(n).
+\end{align}
+
+Hint: Show both sides (which are periodic) have the same Fourier series. Then the function is the same because Fourier series are unique for continuous function.
+
+\subsection{Heat kernels} We have the heat kernel for the heat equation (with coefficient 1) on $\mathbb{R}$:
+\begin{align}
+    \mcal{H}_t(x) = \frac{1}{(4\pi t)^{1/2}}e^{-x^2/4t}
+\end{align}
+which has the Fourier transform
+\begin{align}
+    \hat{\mcal{H}}_t(\xi) = e^{-4\pi^2 \xi^2 t}.
+\end{align}
+You also derived the heat kernel on a periodic interval of length 1:
+\begin{align}
+    H_t(x) = \sum_{n=-\infty}^\infty e^{-4\pi^2 n^2 t}e^{2\pi inx}.
+\end{align}
+Using the Poisson summation formula, show that the periodic heat kernel is the periodization of the
+heat kernel on the real line:
+\begin{align}
+    H_t(x) = \sum_{n=-\infty}^\infty \mcal{H}_t(x+n).
+\end{align}
+
+\section{Nyquist–Shannon sampling theorem}
+[From Problem 7.6 of \cite{ShearerLevy_15}] This is one of the fundamental theorem in signal processing. Consider the Fourier transform of a band-limited Schwartz function $f(x)$, in which $\hat f(\xi) = 0$ for $|\xi|>1/2$. 
+
+\subsection{}
+Show
+\begin{align}
+    \hat{f}(\xi)=\sum_{-\infty}^\infty f(n)e^{-2\pi in \xi}
+\end{align}
+for $\xi\in [-1/2, 1/2]$. 
+
+\subsection{}
+Hence deduce that $f(x)$ only depends on the sequence $\{f(n)\}$ of sampled values of $f$:
+\begin{align}
+    f(x) = \sum_{n=\infty}^\infty f(n) \text{sinc}(x-n)\label{eq:WhSh_form}
+\end{align}
+where $\text{sinc}$ is the normalized sinc function where
+\begin{align}
+    \text{sinc}(x) = \frac{\sin(x)}{x}.
+\end{align}
+
+Remark: \eqref{eq:WhSh_form} is called the Whittaker–Shannon interpolation formula.
+
+\subsection{}
+[From Problem 5.20(c) of \cite{SteinShakarchi_03}] Prove that
+\begin{align}
+    \int_\infty ^\infty |f(x)|^2\;\de x = \sum_\infty ^\infty |f(n)|^2.
+\end{align}
+
+\subsection{}
+We now add dimension into the statement to make it more applicable to the real world. We use time here but space is just as valid. Shannon's version of the theorem states \parencite{Shannon_49}:
+\begin{displayquote}
+    If a function $f(t)$ contains no frequencies higher than $W$ cps, it is completely determined by giving its ordinates at a series of points spaced $1/2W$ seconds apart.
+\end{displayquote}
+The threshold $2W$ is called the Nyquist rate and is an attribute of the continuous-time input $x(t)$ to be sampled. The sample rate must exceed the Nyquist rate for the samples to suffice to represent $x(t)$. Thinking from the sampling equipment's perspective: The threshold $f_{s}/2$ is called the Nyquist frequency and is an attribute of the sampling equipment. All meaningful frequency components of the properly sampled $x(t)$ exist below the Nyquist frequency. 
+
+What happens if the signal has higher frequencies than our sampling allows? What if the signal is not band limited at all? You have seen the consequences when you try to take a picture of the computer screen. You would see aliasing.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.5\textwidth]{../Session_8/figs/alias}
+\end{figure}
+
+\section{The Heisenberg uncertainty principle}
+[From \S5.4 of \cite{SteinShakarchi_03}] Suppose $\psi$ is a Schwartz function which satisfies the normalizing condition
+\begin{align}
+    \int_\infty^\infty |\psi(x)|^2 \;\de x = 1.\label{eq:normaliz}
+\end{align}
+
+\subsection{}
+Show that
+\begin{align}
+    \left( \int_\infty^\infty x^2|\psi(x)|^2 \;\de x \right)\left( \int_\infty^\infty \xi^2|\hat\psi(\xi)|^2 \;\de \xi \right) \geq \frac{1}{16\pi^2}.
+\end{align}
+In fact, we have
+\begin{align}
+    \left( \int_\infty^\infty (x-x_0)^2|\psi(x)|^2 \;\de x \right)\left( \int_\infty^\infty (\xi-\xi_0)^2|\hat\psi(\xi)|^2 \;\de \xi \right) \geq \frac{1}{16\pi^2}.
+\end{align}
+
+Hint: start from \eqref{eq:normaliz}, integrate by parts. Remember to use the Cauchy-Schwarz inequality and the Plancherel formula (Parseval identity). 
+
+Remark: You might recognize $|\psi(x)|^2$ as a probability distribution and we have the variance of $|\psi(x)|^2$ and $|\hat\psi(\xi)|^2$. The interpretation of this result in quantum mechanics is:
+\begin{align}
+    \text{(uncertainty of position)}\times\text{(uncertainty of momentum)} \geq \frac{\hbar}{16\pi^2}
+\end{align}
+where $\hbar$ is the Planck's constant. If you know a bit of quantum mechanics or is interested, I encourage you to work through Problem 5.23 of \cite{SteinShakarchi_03}. 
+
+\subsection{}
+[From Problem 5.21 of \cite{SteinShakarchi_03}] Another statement of the uncertainty principle is: suppose that $f$ is continuous on $\mathbb{R}$. Show that $f$ and $\hat f$ cannot both be compactly supported unless $f = 0$. 
+
+Hint: Assume $f$ is supported in $[0, 1/2]$. Expand $f$ in a Fourier series in the
+interval $[0, 1]$, and note that as a result, $f$ is a trigonometric polynomial.
 
 
 \newpage
