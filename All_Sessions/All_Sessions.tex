@@ -5,6 +5,7 @@
 \usepackage{graphicx,float}
 \usepackage{titlesec}
 \usepackage{csquotes}
+\usepackage{esint}
 % -----------------------------------
 \usepackage{hyperref}
 \hypersetup{%
@@ -656,6 +657,226 @@ where $\hbar$ is the Planck's constant. If you know a bit of quantum mechanics o
 
 Hint: Assume $f$ is supported in $[0, 1/2]$. Expand $f$ in a Fourier series in the
 interval $[0, 1]$, and note that as a result, $f$ is a trigonometric polynomial.
+
+\section{Alternative formula for Fourier transform}
+In the HW you have one definition of the Fourier transform and its associated inversion formula:
+\begin{align}
+    &\hat f(\xi) = \int f(x)e^{-i\xi x} \;\de x,\\
+    &f(x) = \int \hat f(\xi)e^{+i\xi x} \;\de \xi \cdot\frac{1}{2\pi}.
+\end{align}
+An alternative formula that absorbs the $2\pi$ factor into the Fourier kernal is:
+\begin{align}
+    &\hat f(\xi ) = \int f(x)e^{-2\pi i\xi x} \;\de x,\\
+    &f(x) = \int \hat f(\xi)e^{+2\pi i \xi x} \;\de \xi \label{eq:Four_inv}.
+\end{align}
+Show that the second version is also valid. I would use the second version in this note.
+
+\section{Some example dispersion relations}
+\subsection{}
+The Korteweg–De Vries equation is a nonlinear, dispersive PDE that models waves on shallow water surfaces
+\begin{align}
+    u_t+u_{xxx}-6uu_x = 0.
+\end{align}
+It is clear that zero is a solution. Linearize the equation around the zero solution. That is, assume the amplitude of the solution is small. We get
+\begin{align}
+    w_t+w_{xxx} = 0.
+\end{align}
+What is the dispersion relation? What is the phase velocity and group velocity?
+
+\subsection{}
+Kuramoto-Sivashinsky equation or the flame equation model a flame front. 
+\begin{align}
+    u_t+u_{xx}+u_{xxxx}+\frac{1}{2}u_x^2 = 0.
+\end{align}
+It is known for its chaotic behavior. Again linearize around the zero solution to get the linear PDE
+\begin{align}
+    w_t+w_{xxxx}+w_{xx} = 0.
+\end{align}
+Calculate the same three quantities.
+
+\subsection{}
+We study the sine-Gordon equation
+\begin{align}
+    u_{tt} = c^2u_{xx}-\sin(u).
+\end{align}
+Linearize around the zero solution. Calculate the same three quantities.
+
+\section{Numerical diffusion and dispersion}
+[From \S 10.9 of \cite{LeVeque_07}] We will study finite difference scheme for the advection equation
+\begin{align}
+    u_t+au_x = 0.
+\end{align}
+We assume $a>0$ and $a=O(1)$. 
+
+\subsection{}
+We could use the upwinding scheme
+\begin{align}
+    U^{n+1}_j = U^n_j-\frac{a\Delta t}{\Delta x}\left( U^n_j-U^n_{j-1} \right).
+\end{align}
+Show that the upwinding scheme is a consistent approximation of the PDE using Taylor expansion. 
+
+\subsection{}
+Take a function $v(x,t)$ that satisfy the upwinding scheme exactly:
+\begin{align}
+    v(x,t+\Delta t)=v(x,t)-\frac{a\Delta t}{\Delta x}\left[v(x,t)-v(x-\Delta x,t)\right].
+\end{align}
+Show that up to an $O(\Delta t^2)$ approximation the PDE that $v$ satisfies is
+\begin{align}
+    v_t+av_x = \frac{1}{2}a\Delta x\left(1-\frac{a\Delta t}{\Delta x}\right)v_{xx}.
+\end{align}
+This is called the modified equation of the upwinding scheme.
+
+Therefore the numerical error when we use the upwinding scheme is diffusive in nature.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../Session_9/figs/num_dispers}
+\end{figure}
+
+\subsection{}
+A better approximation to the advection equation gives the Lax-Wendroff scheme:
+\begin{align}
+    U^{n+1}_j = U^n_j-\frac{a\Delta t}{2\Delta x}\left( U^n_{j+1}-U^n_{j-1} \right)+\frac{a^2 \Delta t^2}{2\Delta x^2}\left(U^n_{j+1}-2U^n_{j}+U^n_{j-1}\right).
+\end{align}
+A rather long calculation\footnote{see \url{https://guillod.org/teaching/m2-b004/TD2-solution.pdf}} gives the modified equation of the Lax-Wendroff scheme:
+\begin{align}
+    v_t+av_x +\frac{1}{6}a\Delta x^2\left(1-\left(\frac{a\Delta t}{\Delta x}\right)^2\right)v_{xxx} = 0.
+\end{align}
+Calculate the dispersion relationship for waves in this PDE. Are the waves dispersive? What is the group velocity? We say that the error for the Lax-Wendroff is dispersive in nature. 
+
+For stability, we require the ratio
+\begin{align}
+    \frac{a\Delta t}{\Delta x}<1.
+\end{align}
+Compare the group velocity to the advection velocity. Use this to explain the trailing wavy error in the above figure for Lax-Wendroff. 
+
+\subsection{}
+The above plot also show the Leapfrog scheme, which also has dispersive error. Another scheme is the Beam-Warming scheme. We see from the figure below that its error is also dispersive, but the error lead the solution. You could do the same calculation and see that $c_g>a$. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{../Session_9/figs/beamwarming}
+\end{figure}
+
+
+\section{Riemann-Lebesgue Lemma}
+The mathematical theorem that is behind the method of stationary phase is the Riemann-Lebesgue Lemma. 
+\begin{displayquote}
+    Let $f:\mathbb{R}\to\mathbb{R}$ be a (Lebesgue) integrable function. Then we have
+    \begin{align}
+        \lim_{\xi\to\infty} \int^\infty_{-\infty} f(x)e^{i\xi x}\;\de x = 0
+    \end{align}
+\end{displayquote}
+Intuitively, as $\xi$ increases the oscillations in the integral increase and become much faster than any variation in $f(x)$; successive oscillations thus cancel and the integral becomes very small.
+
+\subsection{}
+Show this result assuming $f(x)$ is the indicator function for some compact set. Extend the result to step functions which is piecewise constant. 
+
+\subsection{}
+Compact (Lebesgue) integrable function can be approximated arbitrary well by step functions. That is, for all $\epsilon>0$ there is a step function $\varphi$ such that
+\begin{align}
+    \left| \int_M f \;\de x - \int_M \varphi \;\de x \right| < \epsilon.
+\end{align}
+Use this fact to show that the Riemann-Lebesgue Lemma holds for compact (Lebesgue) integrable function.
+
+\subsection{}
+Finally, show that Riemann-Lebesgue Lemma holds for any (Lebesgue) integrable function. That is, function such that
+\begin{align}
+    \int_\mathbb{R} |f|\;\de x < \infty.
+\end{align}
+
+\section{Conservation laws of KdV}
+[From \cite{ShearerLevy_15}, Problem 12.2] Given the KdV equation
+\begin{align}
+    u_t+uu_x+\gamma u_{xxx} = 0
+\end{align}
+with the condition that the solution decays sufficiently rapidly as $|x|\to\infty$.
+
+\subsection{}
+Show that the momentum and kinetic energy (when $u$ interpreted as a velocity) are conserved:
+\begin{align}
+    \int_\mathbb{R} u\;\de x; \qquad \int_\mathbb{R} u^2\;\de x.
+\end{align}
+
+\subsection{}
+Find $\eta$ (depending on $\gamma$) so that the integral
+\begin{align}
+    \int_\mathbb{R} \frac{1}{2}(u_x^2-\eta u^3)\;\de x
+\end{align}
+is conversed. 
+
+\chapter{Laplace and Poisson Equations}
+\section{Poisson’s equation with Robin boundary conditions}
+[From \cite{ShearerLevy_15}, Problem 8.3]
+Consider Poisson’s equation on a bounded open set $U \in\mathbb{R}^n$ with Robin boundary conditions
+\begin{align}
+    &\nabla^2 u = f(\ve x),\quad\ve x\in U,\\
+    &\qdt{with} \frac{\pe u}{\pe\ve n}+\alpha u(\ve x) = g(\ve x),\quad\ve x\in\pe U.
+\end{align}
+
+\subsection{}
+Prove that if $\alpha > 0$, then the energy method can be used to show
+uniqueness of solutions $u\in C^2(U)\cap C(\overline{U})$
+
+\subsection{}
+For $\alpha = 0$, show that solutions are unique up to a constant.
+
+\subsection{}
+Design an example to show that uniqueness can fail if $\alpha < 0$. (Hint: Choose $n = 1$.)
+
+\section{Separation of variables for the Helmholtz equation}
+[From \cite{Olver_14}, Problem 4.3.18] Use separation of variables to solve the Helmholtz boundary value problem on the unit square:
+\begin{align}
+    &\nabla^2 u = k^2u\\
+    &\qdt{with} u(x,0)=0, u(x,1)=f(x), u(0, y) = 0, u(1, y) = 0
+\end{align}
+
+\section{Energy minimization}
+[From Fall 2015 of Applied Differential Equations qualifying exam at UCLA, Problem 7\footnote{\url{https://ww3.math.ucla.edu/wp-content/uploads/2021/09/ade-15F.pdf}}] 
+Consider $K$ be the set of functions $u: [0, 2] \to \mathbb{R}$ of the form 
+\begin{align}
+    u(x) = \begin{cases}
+        v(x)\qdt{for} x\in[0,1)\\
+        w(x)\qdt{for} x\in(1,2]
+    \end{cases}
+\end{align} 
+and $v\in C^2[0,1)$, $w\in C^2(1,2]$, with the property that $v(0) = w(2) = 0$ and $[u] := w(1) - v(1) = a$. You should assume that the value of the constant $a$ is known. Define
+\begin{align}
+    E(u) = \frac{1}{2}\int_0^1 (u_x)^2\;\de x+\int^2_1 (u_x)^2\;\de x+\frac{w(1)+v(1)}{2}b
+\end{align}
+where $b$ is another constant, whose value you can assume is known. Show that there exists $h(x)$ that minimizes $E$ over all functions $u\in K$, and solve for $h(x)$.
+
+\section{Green's identity and Green's function}
+\subsection{}
+We take a 3D scalar field $\psi$ and a 3D vector field $\ve\Gamma$ with sufficient smoothness defined on some region $U \subset \mathbb{R}^3$. Show the identity
+\begin{align}
+    \iiint_U \left( \psi \, \nabla \cdot \ve{\Gamma} + \ve{\Gamma} \cdot \nabla \psi\right)\, dV  = \oiint_{\partial U} \psi \left( \ve{\Gamma} \cdot \ve{n} \right)\, dS=\oiint_{\partial U}\psi\ve{\Gamma}\cdot d\ve{S}.\label{eq:green_1st_gen}
+\end{align}
+
+\subsection{}
+Use \eqref{eq:green_1st_gen} to show the Green's first identity. Take 3D scalar fields $\psi$ and $\varphi$ both with sufficient smoothness:
+\begin{align}
+    \iiint_U \left( \psi \, \nabla^2 \varphi + \nabla \psi \cdot \nabla \varphi \right)\, dV  = \oiint_{\partial U} \psi \left( \nabla \varphi \cdot \ve{n} \right)\, dS=\oiint_{\partial U}\psi\,\nabla\varphi\cdot d\ve{S}.
+\end{align}
+
+\subsection{}
+Show the Green's second identity:
+\begin{align}
+    \iiint_U \left( \psi \, \nabla^2 \varphi - \varphi \, \nabla^2 \psi\right)\, dV = \oiint_{\partial U} \left( \psi \nabla \varphi - \varphi \nabla \psi\right)\cdot d\ve{S}.
+\end{align}
+This shows that the Laplacian is a self-adjoint operator for functions vanishing on the boundary so that the right hand side of the above identity is zero.
+
+\subsection{}
+Suppose we have the Green's function of the Poisson equation on the bounded domain $\Omega$. That is, we have $G(\ve x;\ve y)$ s.t.
+\begin{align}
+    &\nabla_{\ve x}^2 G = \delta(\ve x-\ve y)\qdt{with BC} \left.G\right|_{\pe\Omega} = 0.
+\end{align}
+Use Green's second identity to obtain the solution to the Poisson equation
+\begin{align}
+    &\nabla_{\ve x}^2 u = f\qdt{with BC} \left.u\right|_{\pe\Omega} = g
+\end{align}
+from the Green's function.
+
+Think about how would you get such a Green's function for general domains. 
 
 
 \newpage
