@@ -1,0 +1,138 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsfonts,amsmath}
+\usepackage{graphicx,float}
+\usepackage{csquotes}
+\usepackage{esint}
+% -----------------------------------
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  linkbordercolor={0 0 1}
+}
+% -----------------------------------
+\usepackage[style=authoryear-icomp,backend=biber]{biblatex}
+\addbibresource{citation.bib}
+% -----------------------------------
+\usepackage{fancyhdr}
+\newcommand\course{MATH-UA.0263\\Partial Differential Equations}
+\newcommand\hwnumber{11}                  % <-- homework number
+\newcommand\NetIDa{Ryan Sh\`iji\'e D\`u} 
+\newcommand\NetIDb{April 21th, 2023}
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Worksheet \hwnumber}}
+\rhead{\course}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+% -----------------------------------
+\usepackage{titlesec}
+\renewcommand\thesubsection{(\arabic{section}.\alph{subsection})}
+\titleformat{\subsection}[runin]
+        {\normalfont\bfseries}
+        {\thesubsection}% the label and number
+        {0.5em}% space between label/number and subsection title
+        {}% formatting commands applied just to subsection title
+        []% punctuation or other commands following subsection title
+% -----------------------------------
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+% -----------------------------------
+\input{../command.tex}
+\begin{document}
+
+\section{Poisson kernel in the upper plane}
+[From \S2.2 of \cite{SteinShakarchi_03}] Solve the Laplace equation on the upper plane with boundary data:
+\begin{align}
+    u(x,0) = f(x).
+\end{align}
+Specifically, find the Green's function such that
+\begin{align}
+    u(x,y) = f(x)*\mcal{P}_y(x).
+\end{align}
+
+Hint: use Fourier transform. Remember that product of Fourier transforms is convolution of the original functions. 
+
+Remark: This Green's function we found is called the Poisson kernel. It is a conformal mapping (i.e.: Cayley transform) away from the Poisson kernel for the unit disk, which you will obtain in the HW. However, I do not recommend using this method to get the Poisson kernel for the unit disk. The derivation in the HW is better.
+
+\section{Green's identity and Green's function}
+\subsection{}
+We take a 3D scalar field $\psi$ and a 3D vector field $\ve\Gamma$ with sufficient smoothness defined on some region $U \subset \mathbb{R}^3$. Show the identity
+\begin{align}
+    \iiint_U \left( \psi \, \nabla \cdot \ve{\Gamma} + \ve{\Gamma} \cdot \nabla \psi\right)\, dV  = \oiint_{\partial U} \psi \left( \ve{\Gamma} \cdot \ve{n} \right)\, dS=\oiint_{\partial U}\psi\ve{\Gamma}\cdot d\ve{S}.\label{eq:green_1st_gen}
+\end{align}
+
+\subsection{}
+Use \eqref{eq:green_1st_gen} to show the Green's first identity. Take 3D scalar fields $\psi$ and $\varphi$ both with sufficient smoothness:
+\begin{align}
+    \iiint_U \left( \psi \, \nabla^2 \varphi + \nabla \psi \cdot \nabla \varphi \right)\, dV  = \oiint_{\partial U} \psi \left( \nabla \varphi \cdot \ve{n} \right)\, dS=\oiint_{\partial U}\psi\,\nabla\varphi\cdot d\ve{S}.
+\end{align}
+
+\subsection{}
+Show the Green's second identity:
+\begin{align}
+    \iiint_U \left( \psi \, \nabla^2 \varphi - \varphi \, \nabla^2 \psi\right)\, dV = \oiint_{\partial U} \left( \psi \nabla \varphi - \varphi \nabla \psi\right)\cdot d\ve{S}.
+\end{align}
+This shows that the Laplacian is a self-adjoint operator for functions vanishing on the boundary so that the right hand side of the above identity is zero.
+
+\subsection{}
+Suppose we have the Green's function of the Poisson equation on the bounded domain $\Omega$. That is, we have $G(\ve x;\ve y)$ s.t.
+\begin{align}
+    &\nabla_{\ve x}^2 G = \delta(\ve x-\ve y)\qdt{with BC} \left.G\right|_{\pe\Omega} = 0.
+\end{align}
+Use Green's second identity to obtain the solution to the Poisson equation
+\begin{align}
+    &\nabla_{\ve x}^2 u = f\qdt{with BC} \left.u\right|_{\pe\Omega} = g
+\end{align}
+from the Green's function.
+
+Think about how would you get such a Green's function for general domains. 
+
+\section{Energy minimization for Poisson and Laplace}
+\subsection{} Suppose that we are interested in solving the Poisson's equation:
+\begin{align}
+    -\nabla^2 u = f(x)
+\end{align}
+for continuous $f(x)$, and with Dirichlet boundary conditions over $\pe\Omega$ for $u$. Show that the solution of this equation minimizes, among $u\in C^2(\Omega)\cap C(\overline{\Omega})$, with $u|_{\pe\Omega} = g(x)$, the \emph{complementary energy}:
+\begin{align}
+    V[u] = \int_\Omega \left(\frac{1}{2}\norm{\nabla u}^2-f(x)u\right)\de V. 
+\end{align}
+
+Inversely, show that the minimizer of $V$ solves the Poisson's equation.
+
+\subsection{}
+Now we study Laplace with \emph{Neumann boundary condition}. Suppose that the boundary can be divided into $\pe\Omega_D$ on which $u = g(x)$ is known, and $\pe\Omega_N$ on
+which $\pe u/\pe n = N(x)$ is known. Show that $u$ minimizes:
+\begin{align}
+    W[u] = \int_\Omega \frac{1}{2}\norm{\nabla u}^2\de V-\int_{\pe\Omega_N} Nu\;\de S. 
+\end{align}
+among $u\in C^2(\Omega)\cap C(\overline{\Omega})$, with $u|_{\pe\Omega_D} = g(x)$. Additionally, show the inverse.
+
+
+% \section{Energy minimization}
+% [From Fall 2015 of Applied Differential Equations qualifying exam at UCLA, Problem 7\footnote{\url{https://ww3.math.ucla.edu/wp-content/uploads/2021/09/ade-15F.pdf}}] 
+% Consider $K$ be the set of functions $u: [0, 2] \to \mathbb{R}$ of the form 
+% \begin{align}
+%     u(x) = \begin{cases}
+%         v(x)\qdt{for} x\in[0,1)\\
+%         w(x)\qdt{for} x\in(1,2]
+%     \end{cases}
+% \end{align} 
+% and $v\in C^2[0,1)$, $w\in C^2(1,2]$, with the property that $v(0) = w(2) = 0$ and $[u] := w(1) - v(1) = a$. You should assume that the value of the constant $a$ is known. Define
+% \begin{align}
+%     E(u) = \frac{1}{2}\int_0^1 (u_x)^2\;\de x+\int^2_1 (u_x)^2\;\de x+\frac{w(1)+v(1)}{2}b
+% \end{align}
+% where $b$ is another constant, whose value you can assume is known. Show that there exists $h(x)$ that minimizes $E$ over all functions $u\in K$, and solve for $h(x)$.
+
+
+\vfill
+\printbibliography
+
+\end{document}
