@@ -153,7 +153,7 @@ Solve for $u(x,t)$
 \subsection{}
 Assume $\supp\phi = \supp\psi=[1,2]$, where can you guarantee that $u=0$ for $x>0, t>0$. 
 
-\section{Fourier series and the expansions of $\pi$}
+\section{Fourier series and series for $\pi$}
 \subsection{}
 Show the Fourier series of periodic extension of $x$ on the interval $(-\pi,\pi)$ is
 \begin{align}
@@ -532,7 +532,7 @@ The necessary condition for the stability of a finite difference scheme is that 
 
 Remark: One way out of this is to use an implicit timestepping scheme.
 
-\chapter{Dispersive Waves}
+\chapter{Fourier Transform and Dispersive Waves}
 \section{Alternative formula for Fourier transform}
 In the HW you have one definition of the Fourier transform and its associated inversion formula:
 \begin{align}
@@ -544,7 +544,7 @@ An alternative formula that absorbs the $2\pi$ factor into the Fourier kernal is
     &\hat f(\xi ) = \int f(x)e^{-2\pi i\xi x} \;\de x,\\
     &f(x) = \int \hat f(\xi)e^{+2\pi i \xi x} \;\de \xi \label{eq:Four_inv}.
 \end{align}
-Show that they are equivalent. I would use the second version in this note.
+Show that the second version is also valid. I would use the second version in this note.
 
 \section{Poisson summation formula}
 [From \cite{SteinShakarchi_03}, \S5.3] Given a Schwartz function $f$ on the real line, we can construct a new periodic (with period 1) function on the circle by the recipe
@@ -657,19 +657,6 @@ where $\hbar$ is the Planck's constant. If you know a bit of quantum mechanics o
 
 Hint: Assume $f$ is supported in $[0, 1/2]$. Expand $f$ in a Fourier series in the
 interval $[0, 1]$, and note that as a result, $f$ is a trigonometric polynomial.
-
-\section{Alternative formula for Fourier transform}
-In the HW you have one definition of the Fourier transform and its associated inversion formula:
-\begin{align}
-    &\hat f(\xi) = \int f(x)e^{-i\xi x} \;\de x,\\
-    &f(x) = \int \hat f(\xi)e^{+i\xi x} \;\de \xi \cdot\frac{1}{2\pi}.
-\end{align}
-An alternative formula that absorbs the $2\pi$ factor into the Fourier kernal is:
-\begin{align}
-    &\hat f(\xi ) = \int f(x)e^{-2\pi i\xi x} \;\de x,\\
-    &f(x) = \int \hat f(\xi)e^{+2\pi i \xi x} \;\de \xi \label{eq:Four_inv}.
-\end{align}
-Show that the second version is also valid. I would use the second version in this note.
 
 \section{Some example dispersion relations}
 \subsection{}
@@ -845,6 +832,20 @@ and $v\in C^2[0,1)$, $w\in C^2(1,2]$, with the property that $v(0) = w(2) = 0$ a
 \end{align}
 where $b$ is another constant, whose value you can assume is known. Show that there exists $h(x)$ that minimizes $E$ over all functions $u\in K$, and solve for $h(x)$.
 
+\section{Poisson kernel in the upper plane}
+[From \S2.2 of \cite{SteinShakarchi_03}] Solve the Laplace equation on the upper plane with boundary data:
+\begin{align}
+    u(x,0) = f(x).
+\end{align}
+Specifically, find the Green's function such that
+\begin{align}
+    u(x,y) = f(x)*\mcal{P}_y(x).
+\end{align}
+
+Hint: use Fourier transform. Remember that product of Fourier transforms is convolution of the original functions. 
+
+Remark: This Green's function we found is called the Poisson kernel. It is a conformal mapping (i.e.: Cayley transform) away from the Poisson kernel for the unit disk, which you will obtain in the HW. However, I do not recommend using this method to get the Poisson kernel for the unit disk. The derivation in the HW is better.
+
 \section{Green's identity and Green's function}
 \subsection{}
 We take a 3D scalar field $\psi$ and a 3D vector field $\ve\Gamma$ with sufficient smoothness defined on some region $U \subset \mathbb{R}^3$. Show the identity
@@ -877,6 +878,26 @@ Use Green's second identity to obtain the solution to the Poisson equation
 from the Green's function.
 
 Think about how would you get such a Green's function for general domains. 
+
+\section{Energy minimization for Poisson and Laplace}
+\subsection{} Suppose that we are interested in solving the Poisson's equation:
+\begin{align}
+    -\nabla^2 u = f(x)
+\end{align}
+for continuous $f(x)$, and with Dirichlet boundary conditions over $\pe\Omega$ for $u$. Show that the solution of this equation minimizes, among $u\in C^2(\Omega)\cap C(\overline{\Omega})$, with $u|_{\pe\Omega} = g(x)$, the \emph{complementary energy}:
+\begin{align}
+    V[u] = \int_\Omega \left(\frac{1}{2}\norm{\nabla u}^2-f(x)u\right)\de V. 
+\end{align}
+
+Inversely, show that the minimizer of $V$ solves the Poisson's equation.
+
+\subsection{}
+Now we study Laplace with \emph{Neumann boundary condition}. Suppose that the boundary can be divided into $\pe\Omega_D$ on which $u = g(x)$ is known, and $\pe\Omega_N$ on
+which $\pe u/\pe n = N(x)$ is known. Show that $u$ minimizes:
+\begin{align}
+    W[u] = \int_\Omega \frac{1}{2}\norm{\nabla u}^2\de V-\int_{\pe\Omega_N} Nu\;\de S. 
+\end{align}
+among $u\in C^2(\Omega)\cap C(\overline{\Omega})$, with $u|_{\pe\Omega_D} = g(x)$. Additionally, show the inverse.
 
 
 \newpage

@@ -1,0 +1,116 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage{amsfonts,amsmath}
+\usepackage{graphicx,float}
+\usepackage{csquotes}
+\usepackage{esint}
+% -----------------------------------
+\usepackage{hyperref}
+\hypersetup{%
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  linkbordercolor={0 0 1}
+}
+% -----------------------------------
+\usepackage[style=authoryear-icomp,backend=biber]{biblatex}
+\addbibresource{citation.bib}
+% -----------------------------------
+\usepackage{fancyhdr}
+\newcommand\course{MATH-UA.0263\\Partial Differential Equations}
+\newcommand\hwnumber{12}                  % <-- homework number
+\newcommand\NetIDa{Ryan Sh\`iji\'e D\`u} 
+\newcommand\NetIDb{April 28th, 2023}
+\pagestyle{fancyplain}
+\headheight 35pt
+\lhead{\NetIDa\\\NetIDb}
+\chead{\textbf{\Large Worksheet \hwnumber}}
+\rhead{\course}
+\lfoot{}
+\cfoot{}
+\rfoot{\small\thepage}
+\headsep 1.5em
+% -----------------------------------
+\usepackage{titlesec}
+\renewcommand\thesubsection{(\arabic{section}.\alph{subsection})}
+\titleformat{\subsection}[runin]
+        {\normalfont\bfseries}
+        {\thesubsection}% the label and number
+        {0.5em}% space between label/number and subsection title
+        {}% formatting commands applied just to subsection title
+        []% punctuation or other commands following subsection title
+% -----------------------------------
+\setlength{\parindent}{0.0in}
+\setlength{\parskip}{0.1in}
+% -----------------------------------
+\input{../command.tex}
+\begin{document}
+
+\section{Green's identity and Green's function}
+\subsection{}
+We take a 3D scalar field $\psi$ and a 3D vector field $\ve\Gamma$ with sufficient smoothness defined on some region $U \subset \mathbb{R}^3$. Show the identity
+\begin{align}
+    \iiint_U \left( \psi \, \nabla \cdot \ve{\Gamma} + \ve{\Gamma} \cdot \nabla \psi\right)\, dV  = \oiint_{\partial U} \psi \left( \ve{\Gamma} \cdot \ve{n} \right)\, dS=\oiint_{\partial U}\psi\ve{\Gamma}\cdot d\ve{S}.\label{eq:green_1st_gen}
+\end{align}
+
+\subsection{}
+Use \eqref{eq:green_1st_gen} to show the Green's first identity. Take 3D scalar fields $\psi$ and $\varphi$ both with sufficient smoothness:
+\begin{align}
+    \iiint_U \left( \psi \, \nabla^2 \varphi + \nabla \psi \cdot \nabla \varphi \right)\, dV  = \oiint_{\partial U} \psi \left( \nabla \varphi \cdot \ve{n} \right)\, dS=\oiint_{\partial U}\psi\,\nabla\varphi\cdot d\ve{S}.
+\end{align}
+
+\subsection{}
+Show the Green's second identity:
+\begin{align}
+    \iiint_U \left( \psi \, \nabla^2 \varphi - \varphi \, \nabla^2 \psi\right)\, dV = \oiint_{\partial U} \left( \psi \nabla \varphi - \varphi \nabla \psi\right)\cdot d\ve{S}.
+\end{align}
+This shows that the Laplacian is a self-adjoint operator for functions vanishing on the boundary so that the right hand side of the above identity is zero.
+
+\subsection{}
+Suppose we have the Green's function of the Poisson equation on the bounded domain $\Omega$. That is, we have $G(\ve x;\ve y)$ s.t.
+\begin{align}
+    &\nabla_{\ve x}^2 G = \delta(\ve x-\ve y)\qdt{with BC} \left.G\right|_{\pe\Omega} = 0.
+\end{align}
+Use Green's second identity to obtain the solution to the Poisson equation
+\begin{align}
+    &\nabla_{\ve x}^2 u = f\qdt{with BC} \left.u\right|_{\pe\Omega} = g
+\end{align}
+from the Green's function.
+
+Think about how would you get such a Green's function for general domains. 
+
+\section{Energy minimization for Poisson and Laplace}
+\subsection{} Suppose that we are interested in solving the Poisson's equation:
+\begin{align}
+    -\nabla^2 u = f(x)
+\end{align}
+for continuous $f(x)$, and with Dirichlet boundary conditions over $\pe\Omega$ for $u$. Show that the solution of this equation minimizes, among $u\in C^2(\Omega)\cap C(\overline{\Omega})$, with $u|_{\pe\Omega} = g(x)$, the \emph{complementary energy}:
+\begin{align}
+    V[u] = \int_\Omega \left(\frac{1}{2}\norm{\nabla u}^2-f(x)u\right)\de V. 
+\end{align}
+
+Inversely, show that the minimizer of $V$ solves the Poisson's equation.
+
+\subsection{}
+Now we study Laplace with \emph{Neumann boundary condition}. Suppose that the boundary can be divided into $\pe\Omega_D$ on which $u = g(x)$ is known, and $\pe\Omega_N$ on
+which $\pe u/\pe n = N(x)$ is known. Show that $u$ minimizes:
+\begin{align}
+    W[u] = \int_\Omega \frac{1}{2}\norm{\nabla u}^2\de V-\int_{\pe\Omega_N} Nu\;\de S. 
+\end{align}
+among $u\in C^2(\Omega)\cap C(\overline{\Omega})$, with $u|_{\pe\Omega_D} = g(x)$. Additionally, show the inverse.
+
+\section{Euler–Tricomi equation}
+The Euler–Tricomi equation is a PDE useful in the study of transonic flow:
+\begin{align}
+    u_{xx}+xu_{yy} = 0.
+\end{align}
+This equation changed its type over $x$. Categorize this equation.
+
+
+
+\vfill
+\printbibliography
+
+\end{document}
