@@ -66,7 +66,7 @@
 %\addcontentsline{toc}{chapter}{READ ME}
 %\phantomsection
 \section{READ ME}
-This document is a compilation of the worksheets used in the recitation sessions for \href{https://math.nyu.edu/dynamic/courses/undergrad/math-ua-263/}{NYU Undergraduate Partial Differential Equations} in Spring of 2023. 
+This document is a compilation of the worksheets used in the recitation sessions for \href{https://math.nyu.edu/dynamic/courses/undergrad/math-ua-263/}{NYU Undergraduate Partial Differential Equations} in Spring of 2023. We did not do all problems in this documents in class.
 
 The \LaTeX\ files of this document can be found at \url{https://github.com/Empyreal092/UgradPDE_Worksheet}.
 
@@ -817,7 +817,7 @@ Design an example to show that uniqueness can fail if $\alpha < 0$. (Hint: Choos
     &\qdt{with} u(x,0)=0, u(x,1)=f(x), u(0, y) = 0, u(1, y) = 0
 \end{align}
 
-\section{Energy minimization}
+\section{Energy minimization in 1D}
 [From Fall 2015 of Applied Differential Equations qualifying exam at UCLA, Problem 7\footnote{\url{https://ww3.math.ucla.edu/wp-content/uploads/2021/09/ade-15F.pdf}}] 
 Consider $K$ be the set of functions $u: [0, 2] \to \mathbb{R}$ of the form 
 \begin{align}
@@ -898,6 +898,13 @@ which $\pe u/\pe n = N(x)$ is known. Show that $u$ minimizes:
     W[u] = \int_\Omega \frac{1}{2}\norm{\nabla u}^2\de V-\int_{\pe\Omega_N} Nu\;\de S. 
 \end{align}
 among $u\in C^2(\Omega)\cap C(\overline{\Omega})$, with $u|_{\pe\Omega_D} = g(x)$. Additionally, show the inverse.
+
+\section{Euler–Tricomi equation}
+The Euler–Tricomi equation is a PDE useful in the study of transonic flow:
+\begin{align}
+    u_{xx}+xu_{yy} = 0.
+\end{align}
+This equation changed its type over $x$. Categorize this equation.
 
 
 \newpage
